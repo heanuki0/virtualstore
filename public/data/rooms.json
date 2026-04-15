@@ -1,0 +1,115 @@
+{
+  "roomsets": [
+    {
+      "id": "R01",
+      "name": "Modern Sanctuary",
+      "concept": "모던 생추어리",
+      "style": "modern",
+      "priceMin": 8000000,
+      "priceTag": "800만원~",
+      "hero": "/panos/R01/preview.jpg",
+      "panorama": {
+        "equirect": "/panos/R01/equirect.webp",
+        "previewUrl": "/panos/R01/preview.jpg",
+        "levels": [],
+        "variants": [
+          { "id": "day",    "label": "오후", "icon": "☀️", "equirect": "/panos/R01/equirect.webp" },
+          { "id": "sunset", "label": "석양", "icon": "🌆", "equirect": "/panos/R01/sunset.webp"   },
+          { "id": "night",  "label": "밤",   "icon": "🌙", "equirect": "/panos/R01/night.webp"    }
+        ]
+      },
+      "hotspots": [
+        { "id": "H01", "yaw": 12.5, "pitch": -8.2, "category": "sofa", "defaultProduct": "P01", "swappable": true },
+        { "id": "H02", "yaw": -22.0, "pitch": -12.0, "category": "table", "defaultProduct": "P08", "swappable": true },
+        { "id": "H03", "yaw": 45.0, "pitch": 4.0, "category": "light", "defaultProduct": "P13", "swappable": true },
+        { "id": "H04", "yaw": 0.0, "pitch": -32.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
+        { "id": "H05", "yaw": -60.0, "pitch": -18.0, "category": "object", "defaultProduct": "P25", "swappable": true }
+      ],
+      "products": ["P01", "P08", "P13", "P19", "P25"],
+      "desc": "리비에라의 오후빛. 딥블루 벨벳 소파와 트래버틴 테이블이 어우러진 현대적 라운지.",
+      "aiHints": ["모던", "거실", "리비에라", "800만원대"]
+    },
+    {
+      "id": "R02",
+      "name": "Classic English",
+      "concept": "클래식 잉글리시",
+      "style": "classic",
+      "priceMin": 15000000,
+      "priceTag": "1,500만원~",
+      "hero": "/panos/R02/preview.jpg",
+      "panorama": {
+        "equirect": "/panos/R02/equirect.webp",
+        "previewUrl": "/panos/R02/preview.jpg",
+        "levels": [],
+        "variants": [
+          { "id": "day",    "label": "오후", "icon": "☀️", "equirect": "/panos/R02/equirect.webp" },
+          { "id": "sunset", "label": "석양", "icon": "🌆", "equirect": "/panos/R02/sunset.webp"   },
+          { "id": "night",  "label": "밤",   "icon": "🌙", "equirect": "/panos/R02/night.webp"    }
+        ]
+      },
+      "hotspots": [
+        { "id": "H01", "yaw": 10.0, "pitch": -8.0, "category": "sofa", "defaultProduct": "P03", "swappable": true },
+        { "id": "H02", "yaw": -40.0, "pitch": -5.0, "category": "light", "defaultProduct": "P13", "swappable": true },
+        { "id": "H03", "yaw": 0.0, "pitch": -30.0, "category": "rug", "defaultProduct": "P19", "swappable": true }
+      ],
+      "products": ["P03", "P13", "P19"],
+      "desc": "런던 메이페어의 서재. 체스터필드와 버버 러그가 들려주는 영국 헤리티지.",
+      "aiHints": ["클래식", "영국", "메이페어", "1500만원대"]
+    },
+    {
+      "id": "R03",
+      "name": "Mid-Century Lounge",
+      "concept": "미드센추리 라운지",
+      "style": "mid-century",
+      "priceMin": 6000000,
+      "priceTag": "600만원~",
+      "hero": "/panos/R03/preview.jpg",
+      "panorama": {
+        "equirect": "/panos/R03/equirect.webp",
+        "previewUrl": "/panos/R03/preview.jpg",
+        "levels": [],
+        "variants": [
+          { "id": "day",    "label": "오후", "icon": "☀️", "equirect": "/panos/R03/equirect.webp" },
+          { "id": "sunset", "label": "석양", "icon": "🌆", "equirect": "/panos/R03/sunset.webp"   },
+          { "id": "night",  "label": "밤",   "icon": "🌙", "equirect": "/panos/R03/night.webp"    }
+        ]
+      },
+      "hotspots": [
+        { "id": "H01", "yaw": 8.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P02", "swappable": true },
+        { "id": "H02", "yaw": 38.0, "pitch": -4.0, "category": "light", "defaultProduct": "P13", "swappable": true },
+        { "id": "H03", "yaw": -25.0, "pitch": -20.0, "category": "rug", "defaultProduct": "P19", "swappable": true }
+      ],
+      "products": ["P02", "P13", "P19"],
+      "desc": "1960년대 북유럽의 여유. 월넛과 크림 패브릭, FLOS Arco의 곡선.",
+      "aiHints": ["미드센추리", "월넛", "600만원대"]
+    },
+    {
+      "id": "R04",
+      "name": "Minimal Scandi",
+      "concept": "미니멀 스칸디",
+      "style": "minimal",
+      "priceMin": 4000000,
+      "priceTag": "400만원~",
+      "hero": "/panos/R04/preview.jpg",
+      "panorama": {
+        "equirect": "/panos/R04/equirect.webp",
+        "previewUrl": "/panos/R04/preview.jpg",
+        "levels": [],
+        "variants": [
+          { "id": "day",    "label": "오후", "icon": "☀️", "equirect": "/panos/R04/equirect.webp" },
+          { "id": "sunset", "label": "석양", "icon": "🌆", "equirect": "/panos/R04/sunset.webp"   },
+          { "id": "night",  "label": "밤",   "icon": "🌙", "equirect": "/panos/R04/night.webp"    }
+        ]
+      },
+      "hotspots": [
+        { "id": "H01", "yaw": 5.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P02", "swappable": true },
+        { "id": "H02", "yaw": 45.0, "pitch": 0.0, "category": "light", "defaultProduct": "P13", "swappable": true },
+        { "id": "H03", "yaw": -20.0, "pitch": -26.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
+        { "id": "H04", "yaw": -55.0, "pitch": -10.0, "category": "object", "defaultProduct": "P23", "swappable": true }
+      ],
+      "products": ["P02", "P13", "P19", "P23"],
+      "desc": "코펜하겐의 흰 벽. 리넨과 강화유리, 필요한 것만 남긴 여백의 미학.",
+      "aiHints": ["미니멀", "스칸디", "코펜하겐", "400만원대"]
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "products": [
+    {
+      "id": "P01",
+      "name": "Barcelona 3-Seater Sofa",
+      "cat": "sofa",
+      "style": "modern",
+      "price": 2890000,
+      "desc": "이탈리아산 풀그레인 가죽과 브러시드 스틸 프레임. 미드모더니즘의 정수.",
+      "img": "/products/P01.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P01"
+    },
+    {
+      "id": "P02",
+      "name": "Toledo Lounge Chair",
+      "cat": "sofa",
+      "style": "mid-century",
+      "price": 1650000,
+      "desc": "월넛 원목 프레임에 크림 울 패브릭. 북유럽 휴식의 상징.",
+      "img": "/products/P02.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P02"
+    },
+    {
+      "id": "P03",
+      "name": "Morris Chesterfield",
+      "cat": "sofa",
+      "style": "classic",
+      "price": 4890000,
+      "desc": "영국 전통 버튼 디테일. 에이지드 코냑 가죽으로 완성된 클래식.",
+      "img": "/products/P03.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P03"
+    },
+    {
+      "id": "P08",
+      "name": "Travertine Coffee Table",
+      "cat": "table",
+      "style": "modern",
+      "price": 1450000,
+      "desc": "이탈리아산 트래버틴 원석. 둥근 모서리 가공.",
+      "img": "/products/P08.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P08"
+    },
+    {
+      "id": "P13",
+      "name": "FLOS Arco Floor Lamp",
+      "cat": "light",
+      "style": "mid-century",
+      "price": 3190000,
+      "desc": "카스티글리오니 형제 1962년 디자인. 카라라 대리석 베이스.",
+      "img": "/products/P13.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P13"
+    },
+    {
+      "id": "P19",
+      "name": "Berber Handwoven 200x300",
+      "cat": "rug",
+      "style": "classic",
+      "price": 1290000,
+      "desc": "모로코 아틀라스 산맥 베르베르족 수공예.",
+      "img": "/products/P19.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P19"
+    },
+    {
+      "id": "P23",
+      "name": "HAY Ceramic Vase Small",
+      "cat": "object",
+      "style": "minimal",
+      "price": 58000,
+      "desc": "포르투갈 수공 세라믹. 선물 패키지 포함.",
+      "img": "/products/P23.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P23"
+    },
+    {
+      "id": "P24",
+      "name": "Iittala Glass Bowl",
+      "cat": "object",
+      "style": "minimal",
+      "price": 48000,
+      "desc": "핀란드 이탈라. 마우스블로운 크리스탈.",
+      "img": "/products/P24.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P24"
+    },
+    {
+      "id": "P25",
+      "name": "Muuto Candle Holder",
+      "cat": "object",
+      "style": "modern",
+      "price": 49000,
+      "desc": "덴마크 무토. 파우더 코팅 스틸.",
+      "img": "/products/P25.webp",
+      "lotteUrl": "https://www.lotteshopping.com/goods/P25"
+    }
+  ]
+}

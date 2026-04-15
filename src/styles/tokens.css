@@ -1,0 +1,31 @@
+/**
+ * Conran brand design tokens
+ * 전역 CSS 변수로 정의하여 tailwind.config.ts의 conran-* 클래스와 연결.
+ * 토큰 값 변경 시 이 파일만 수정하면 전체 반영.
+ */
+:root {
+  /* Core palette */
+  --conran-black: #0a0a0a;
+  --conran-ink: #1a1a1a;
+  --conran-off: #f7f3eb;
+  --conran-cream: #ede7dc;
+  --conran-accent: #c85a2a; /* 콘란 테라코타 오렌지 */
+  --conran-gold: #b8935a;
+  --conran-line: #2a2a2a;
+
+  /* Spacing / radii */
+  --radius-sharp: 2px;
+  --radius-md: 4px;
+  --radius-soft: 14px;
+
+  /* Z-index scale */
+  --z-hud: 50;
+  --z-breadcrumb: 40;
+  --z-overlay: 100;
+  --z-toast: 200;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --duration-fast: 0.25s;
+  --duration-scene: 0.55s;
+}
