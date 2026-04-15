@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+# Cancel superseded runs on the same ref (saves minutes on rebased PRs).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: validate + build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      # zod schema + cross-file product/roomset/AI referential integrity.
+      - name: Validate JSON data
+        run: npm run validate
+
+      # tsc --noEmit type check + Vite production bundle
+      # (prebuild hook re-runs validate for defence-in-depth; harmless duplicate.)
+      - name: Production build
+        run: npm run build
+
+      # Surface bundle sizes directly in the Actions run summary so reviewers
+      # can spot regressions without downloading the artifact.
+      - name: Report bundle sizes
+        if: always()
+        shell: bash
+        run: |
+          set -e
+          if [ ! -d dist/assets ]; then
+            echo "dist/assets not found — build may have failed." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          {
+            echo "### 📦 Bundle sizes (gzip)"
+            echo ""
+            echo "| File | Raw | Gzip |"
+            echo "|------|----:|-----:|"
+            for f in $(find dist/assets -maxdepth 1 -type f \( -name "*.js" -o -name "*.css" \) | sort); do
+              name=$(basename "$f")
+              raw=$(wc -c < "$f")
+              gz=$(gzip -c -- "$f" | wc -c)
+              raw_kb=$(awk "BEGIN{printf \"%.1f\", $raw/1024}")
+              gz_kb=$(awk "BEGIN{printf \"%.1f\", $gz/1024}")
+              echo "| \`$name\` | ${raw_kb} KB | **${gz_kb} KB** |"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Upload the built dist/ so reviewers can pull and preview a PR build.
+      - name: Upload dist artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.sha }}
+          path: dist/
+          retention-days: 7
+          if-no-files-found: error

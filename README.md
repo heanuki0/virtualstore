@@ -11,6 +11,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/heanuki0/virtualstore/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/heanuki0/virtualstore/actions/workflows/ci.yml/badge.svg"/></a>
   <img alt="Vite" src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=fff"/>
   <img alt="Preact" src="https://img.shields.io/badge/Preact-10-673AB8?logo=preact&logoColor=fff"/>
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=fff"/>
@@ -301,14 +302,26 @@ npm run dev        # 즉시 확인
 - [x] DALL·E 3 파노라마 4룸셋 × 3시간대 = 12장
 
 ### 진행 중 / 남은 작업
+- [x] GitHub Actions CI (`validate + build` + 번들 크기 리포트)
 - [ ] 시간대 variant 전환 시 Marzipano 재초기화 안정화 (프로덕션 빌드 검증)
 - [ ] `marzipano-tool`로 cube 타일화 → 고해상 줌 지원
 - [ ] 상품 이미지 AI 생성 (현재 회색 플레이스홀더)
-- [ ] GitHub Actions CI (`validate + build`)
 - [ ] GitHub Pages / Cloudflare Pages 자동 배포
 - [ ] 모바일 반응형 · 터치 최적화
 - [ ] 다국어 (한/영)
 - [ ] 실제 아임포트/Shopify Buy Button 통합
+
+## CI / 배포
+
+모든 푸시와 PR은 [GitHub Actions](https://github.com/heanuki0/virtualstore/actions)에서 자동으로:
+
+1. **Node 20 셋업** + `npm ci` (락 파일 기반 결정론적 설치)
+2. **`npm run validate`** — zod 스키마 + 교차 참조 무결성
+3. **`npm run build`** — `tsc --noEmit` + Vite 번들
+4. **번들 크기 리포트** — 각 파일의 Raw/Gzip 크기를 Actions Summary에 표시
+5. **`dist/` 아티팩트 업로드** (7일 보관) — 리뷰어가 PR 빌드 결과 다운로드·프리뷰 가능
+
+PR에는 [템플릿](.github/PULL_REQUEST_TEMPLATE.md)이 자동 적용되어 변경 요지·확인 체크리스트를 맞춰 제출할 수 있습니다.
 
 ---
 
