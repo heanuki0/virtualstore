@@ -56,6 +56,24 @@ VARIANTS = {
 
 ROOMS = [
     {
+        "id": "HALL",
+        "name": "Entry Hall",
+        "prompt": (
+            "A grand entrance hall of The Conran Shop luxury design showroom, "
+            "wide-angle equirectangular 360-degree interior panorama. "
+            "Directly ahead at the CENTER: a minimal polished walnut concierge desk "
+            "with a stylized floating abstract hologram — a soft blue luminescent "
+            "geometric figure acting as an AI assistant, welcoming atmosphere. "
+            "To the LEFT side: an open archway revealing a cozy living room "
+            "with a deep blue velvet sofa, travertine coffee table and afternoon light. "
+            "To the RIGHT side: another archway revealing a classic English study "
+            "with dark walnut bookshelves, a cognac leather chair and a library lamp. "
+            "Warm cream walls with brass trim, marble floor with subtle geometric inlay, "
+            "skylight chandelier casting soft daylight."
+            + COMMON_SUFFIX
+        ),
+    },
+    {
         "id": "R01",
         "name": "Modern Sanctuary",
         "prompt": (
