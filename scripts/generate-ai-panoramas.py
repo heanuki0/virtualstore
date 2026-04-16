@@ -38,6 +38,14 @@ COMMON_SUFFIX = (
     "Kinfolk magazine aesthetic. No people, no text, no watermark."
 )
 
+# HALL needs a human concierge, so use a separate suffix without "No people"
+HALL_SUFFIX = (
+    " Wide-angle equirectangular 360-degree interior panorama, 2:1 aspect ratio, "
+    "architectural photography, "
+    "warm editorial color grading, photorealistic 8K detail, "
+    "Kinfolk magazine aesthetic. No watermark."
+)
+
 # Lighting overrides per variant. Appended to the base room prompt.
 VARIANTS = {
     "day": (
@@ -59,18 +67,35 @@ ROOMS = [
         "id": "HALL",
         "name": "Entry Hall",
         "prompt": (
-            "A grand entrance hall of The Conran Shop luxury design showroom, "
-            "wide-angle equirectangular 360-degree interior panorama. "
-            "Directly ahead at the CENTER: a minimal polished walnut concierge desk "
-            "with a stylized floating abstract hologram — a soft blue luminescent "
-            "geometric figure acting as an AI assistant, welcoming atmosphere. "
-            "To the LEFT side: an open archway revealing a cozy living room "
-            "with a deep blue velvet sofa, travertine coffee table and afternoon light. "
-            "To the RIGHT side: another archway revealing a classic English study "
-            "with dark walnut bookshelves, a cognac leather chair and a library lamp. "
-            "Warm cream walls with brass trim, marble floor with subtle geometric inlay, "
-            "skylight chandelier casting soft daylight."
-            + COMMON_SUFFIX
+            "Interior of a luxury department store showroom entrance hall, "
+            "SYMMETRICAL wide-angle equirectangular 360-degree panorama, "
+            "camera positioned at the entrance looking straight ahead. "
+            ""
+            "COMPOSITION — STRICT SYMMETRY like a Coca-Cola popup store lobby: "
+            "The hall is a wide rectangular room. The FAR WALL directly ahead has a "
+            "large polished dark walnut CONCIERGE RECEPTION DESK centered in front of it. "
+            "BEHIND the desk, facing the camera, stands a well-dressed young woman "
+            "in a tailored dark charcoal suit, hands clasped on the desk surface, "
+            "professional smile. A brass desk lamp and white flower vase on the desk. "
+            ""
+            "LEFT WALL: A VERY LARGE floor-to-ceiling rectangular glass storefront opening, "
+            "like a department store display window, warmly lit from inside, "
+            "CLEARLY SHOWING a modern living room interior — deep blue velvet 3-seater sofa, "
+            "travertine coffee table, FLOS Arco floor lamp, Berber rug on the floor. "
+            "The opening is framed with cream stone pilasters and a brass header. "
+            "A tall potted tree stands beside the opening. "
+            ""
+            "RIGHT WALL: An IDENTICAL MATCHING floor-to-ceiling rectangular glass storefront opening, "
+            "same size and height as the left one, perfectly symmetrical, warmly lit from inside, "
+            "CLEARLY SHOWING a classic English study interior — dark walnut bookshelves "
+            "filled with books, cognac leather chesterfield chair, library desk lamp glowing. "
+            "Same cream stone pilasters, brass header, and potted tree. "
+            ""
+            "FLOOR: Polished cream marble with a large circular geometric inlay emblem at center. "
+            "CEILING: High barrel-vaulted ceiling with ornate plasterwork, grand skylight dome "
+            "flooding the hall with warm afternoon daylight, brass pendant chandelier. "
+            "ATMOSPHERE: Grand, symmetrical, luxurious British department store lobby."
+            + HALL_SUFFIX
         ),
     },
     {
