@@ -18,6 +18,8 @@ export const roomsets = signal<Roomset[]>([]);
 export const scenarios = signal<AIScenario[]>([]);
 export const dataReady = signal<boolean>(false);
 
+const BASE = import.meta.env.BASE_URL;
+
 async function fetchJson<T>(url: string): Promise<T> {
   const res = await fetch(url, { cache: 'no-cache' });
   if (!res.ok) throw new Error(`${url} → ${res.status}`);
@@ -26,9 +28,9 @@ async function fetchJson<T>(url: string): Promise<T> {
 
 export async function loadAllData(): Promise<void> {
   const [pRaw, rRaw, aRaw] = await Promise.all([
-    fetchJson('/data/products.json'),
-    fetchJson('/data/rooms.json'),
-    fetchJson('/data/ai-scenarios.json'),
+    fetchJson(`${BASE}data/products.json`),
+    fetchJson(`${BASE}data/rooms.json`),
+    fetchJson(`${BASE}data/ai-scenarios.json`),
   ]);
 
   const p = ProductsFile.parse(pRaw).products;
@@ -36,6 +38,26 @@ export async function loadAllData(): Promise<void> {
   const a = AIFile.parse(aRaw).scenarios;
 
   assertIntegrity(p, r, a);
+
+  // Rebase absolute asset paths (/panos/..., /products/...) so they work
+  // under GitHub Pages' /virtualstore/ prefix.
+  const rebase = (path: string | undefined): string | undefined =>
+    path && path.startsWith('/') ? `${BASE}${path.slice(1)}` : path;
+
+  for (const prod of p) {
+    prod.img = rebase(prod.img) ?? prod.img;
+  }
+  for (const room of r) {
+    room.hero = rebase(room.hero) ?? room.hero;
+    if (room.panorama) {
+      room.panorama.equirect = rebase(room.panorama.equirect) ?? room.panorama.equirect;
+      room.panorama.previewUrl = rebase(room.panorama.previewUrl);
+      if (room.panorama.base) room.panorama.base = rebase(room.panorama.base) ?? room.panorama.base;
+      for (const v of room.panorama.variants ?? []) {
+        v.equirect = rebase(v.equirect) ?? v.equirect;
+      }
+    }
+  }
 
   products.value = p;
   roomsets.value = r;

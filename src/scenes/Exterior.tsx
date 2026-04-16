@@ -18,7 +18,7 @@ export function Exterior() {
     // Warm the HALL preview into the browser cache so the door transition
     // reveals the real image, not a flash of gray.
     const pre = new Image();
-    pre.src = '/panos/HALL/preview.jpg';
+    pre.src = `${import.meta.env.BASE_URL}panos/HALL/preview.jpg`;
   };
 
   return (
@@ -64,7 +64,7 @@ export function Exterior() {
 
       <DoorTransition
         active={entering}
-        previewUrl="/panos/HALL/preview.jpg"
+        previewUrl={`${import.meta.env.BASE_URL}panos/HALL/preview.jpg`}
         onComplete={() => goScene('gate')}
       />
     </section>

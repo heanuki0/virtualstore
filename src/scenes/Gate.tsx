@@ -90,7 +90,7 @@ export function Gate() {
       if (!v) return;
       viewer = v;
 
-      const source = M.ImageUrlSource.fromString('/panos/HALL/equirect.webp');
+      const source = M.ImageUrlSource.fromString(`${import.meta.env.BASE_URL}panos/HALL/equirect.webp`);
       const geometry = new M.EquirectGeometry([{ width: 4096 }]);
       const limiter = M.RectilinearView.limit.traditional(4096, (Math.PI * 110) / 180);
       const view = new M.RectilinearView(
