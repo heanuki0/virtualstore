@@ -30,8 +30,9 @@ export function App() {
   useEffect(() => {
     // hash router: #/customize → scene 'customize'
     const sync = () => {
-      const hash = location.hash.replace(/^#\//, '') || 'exterior';
-      goScene(hash as never);
+      const hash = location.hash.replace(/^#\//, '') || 'gallery';
+      // Skip deprecated gate scene — redirect to gallery
+      goScene((hash === 'gate' ? 'gallery' : hash) as never);
     };
     sync();
     window.addEventListener('hashchange', sync);

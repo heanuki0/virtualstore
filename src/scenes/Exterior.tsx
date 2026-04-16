@@ -65,7 +65,7 @@ export function Exterior() {
       <DoorTransition
         active={entering}
         previewUrl={`${import.meta.env.BASE_URL}panos/HALL/preview.jpg`}
-        onComplete={() => goScene('gate')}
+        onComplete={() => goScene('gallery')}
       />
     </section>
   );
