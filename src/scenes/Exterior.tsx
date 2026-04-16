@@ -1,11 +1,26 @@
+import { useState } from 'preact/hooks';
 import { goScene } from '../stores/scene';
+import { DoorTransition } from '../components/DoorTransition';
 
 /**
  * Scene A — Exterior
  * 콘란 경의 하우스 진입. PDF p.1, p.5 대응.
- * TODO(Phase 1-W2): AI 생성 파노라마 미리보기 정지 이미지로 교체.
+ *
+ * "입장하기" 누르면 두 월넛 문짝이 좌우로 열리며 홀 파노라마가
+ * 드러난 뒤 Gate 씬으로 라우팅된다 (≈1.6 s).
  */
 export function Exterior() {
+  const [entering, setEntering] = useState(false);
+
+  const enterHouse = () => {
+    if (entering) return;
+    setEntering(true);
+    // Warm the HALL preview into the browser cache so the door transition
+    // reveals the real image, not a flash of gray.
+    const pre = new Image();
+    pre.src = '/panos/HALL/preview.jpg';
+  };
+
   return (
     <section class="relative min-h-screen bg-conran-black text-conran-off overflow-hidden animate-fade-in">
       <div
@@ -31,19 +46,27 @@ export function Exterior() {
         </p>
         <div class="flex gap-3 flex-wrap justify-center">
           <button
-            class="btn-accent px-10 py-4 text-sm font-semibold tracking-wider uppercase rounded-sm"
-            onClick={() => goScene('gate')}
+            class="btn-accent px-10 py-4 text-sm font-semibold tracking-wider uppercase rounded-sm disabled:opacity-60"
+            onClick={enterHouse}
+            disabled={entering}
           >
-            입장하기 · ENTER HOUSE
+            {entering ? '문이 열리는 중…' : '입장하기 · ENTER HOUSE'}
           </button>
           <button
             class="btn-ghost px-10 py-4 text-sm font-semibold tracking-wider uppercase rounded-sm"
             onClick={() => goScene('gallery')}
+            disabled={entering}
           >
             전시형 바로가기 · SKIP
           </button>
         </div>
       </div>
+
+      <DoorTransition
+        active={entering}
+        previewUrl="/panos/HALL/preview.jpg"
+        onComplete={() => goScene('gate')}
+      />
     </section>
   );
 }
