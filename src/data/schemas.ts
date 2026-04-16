@@ -20,6 +20,8 @@ export const Product = z.object({
   price: z.number().int().positive(),
   desc: z.string(),
   img: z.string(),
+  /** Optional GLB URL for Digital Twin 3D viewer (model-viewer). */
+  model: z.string().optional(),
   lotteUrl: z.string().url().or(z.string().startsWith('/')),
 });
 export type Product = z.infer<typeof Product>;
