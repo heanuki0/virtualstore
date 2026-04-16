@@ -31,8 +31,9 @@ export function App() {
     // hash router: #/customize → scene 'customize'
     const sync = () => {
       const hash = location.hash.replace(/^#\//, '') || 'gallery';
-      // Skip deprecated gate scene — redirect to gallery
-      goScene((hash === 'gate' ? 'gallery' : hash) as never);
+      // Skip exterior & gate — redirect to gallery
+      const resolved = (hash === 'gate' || hash === 'exterior') ? 'gallery' : hash;
+      goScene(resolved as never);
     };
     sync();
     window.addEventListener('hashchange', sync);
