@@ -36,8 +36,8 @@ const SPOTS: Spot[] = [
     id: 'ai',
     yaw: 0,
     pitch: -2,
-    w: 160,
-    h: 100,
+    w: 120,
+    h: 80,
     icon: '💬',
     title: 'AI 컨시어지',
     sub: 'CONRAN CONCIERGE',
@@ -46,27 +46,27 @@ const SPOTS: Spot[] = [
   },
   {
     id: 'living',
-    yaw: -38,
-    pitch: -4,
-    w: 200,
-    h: 180,
+    yaw: -40,
+    pitch: -6,
+    w: 280,
+    h: 300,
     icon: '→',
     title: '거실 타입',
     sub: 'LIVING ROOM',
-    accent: 'rgba(90,122,191,.85)',
-    glow: 'rgba(90,122,191,.3)',
+    accent: 'rgba(255,255,255,.08)',
+    glow: 'rgba(184,147,90,.25)',
   },
   {
     id: 'study',
-    yaw: 38,
-    pitch: -4,
-    w: 200,
-    h: 180,
+    yaw: 40,
+    pitch: -6,
+    w: 280,
+    h: 300,
     icon: '→',
     title: '서재 타입',
     sub: 'STUDY',
-    accent: 'rgba(139,90,60,.85)',
-    glow: 'rgba(139,90,60,.3)',
+    accent: 'rgba(255,255,255,.08)',
+    glow: 'rgba(184,147,90,.25)',
   },
 ];
 
@@ -199,41 +199,24 @@ function makeSpotEl(s: Spot): HTMLDivElement {
       ${PULSE_STYLE}
     `;
   } else {
-    // Left/right storefront: large transparent frame overlay
+    // Left/right storefront: completely invisible click area that sits over
+    // the archway opening in the panorama. No UI at all — the scene itself
+    // is the affordance (like Coca-Cola popup storefronts).
+    // Hover: very subtle warm glow only. Cursor: pointer.
+    const uid = `sf_${s.id}`;
     el.innerHTML = `
-      <div class="gate-spot-room" style="
+      <div id="${uid}" style="
         width:${s.w}px;height:${s.h}px;
-        border:2px solid rgba(255,255,255,.25);
-        border-radius:6px;
-        background:rgba(255,255,255,.04);
-        backdrop-filter:blur(1px);
-        display:flex;flex-direction:column;
-        align-items:center;justify-content:flex-end;
-        padding:12px 16px;
-        transition:all .35s ease;
-        box-shadow:0 0 0 0 ${s.glow};
-      ">
-        <div style="
-          padding:6px 20px;
-          background:rgba(10,10,10,.82);
-          border:1px solid rgba(255,255,255,.12);
-          border-radius:3px;
-          text-align:center;white-space:nowrap;
-        ">
-          <div style="font-size:13px;font-weight:700;color:#fff;letter-spacing:.03em;">${s.title}</div>
-          <div style="font-size:9px;letter-spacing:.3em;color:#b8935a;margin-top:2px;text-transform:uppercase;">${s.sub}</div>
-        </div>
-        <div style="
-          margin-top:6px;font-size:10px;color:rgba(255,255,255,.5);
-          letter-spacing:.15em;text-transform:uppercase;
-        ">입장하기 ${s.icon}</div>
-      </div>
+        border:2px solid transparent;
+        border-radius:8px;
+        background:transparent;
+        transition:all .4s ease;
+      "></div>
       <style>
-        .gate-spot-room:hover {
-          border-color: rgba(255,255,255,.55) !important;
-          background: rgba(255,255,255,.10) !important;
-          box-shadow: 0 0 40px 8px ${s.glow}, inset 0 0 20px rgba(255,255,255,.05) !important;
-          transform: scale(1.02);
+        #${uid}:hover {
+          background: rgba(255,255,255,.07) !important;
+          border-color: rgba(184,147,90,.3) !important;
+          box-shadow: inset 0 0 80px rgba(184,147,90,.1), 0 0 40px rgba(184,147,90,.08) !important;
         }
       </style>
     `;
