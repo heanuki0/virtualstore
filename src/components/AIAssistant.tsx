@@ -5,12 +5,13 @@ import {
   closeAI,
   openAI,
   sendUserQuery,
+  steadyBestsellers,
   toggleAI,
   type AIMessage,
 } from '../stores/ai';
 import { scenarios, productById, roomsetById } from '../data/loader';
 import { openProduct } from '../stores/overlay';
-import { goScene } from '../stores/scene';
+import { currentScene, goScene } from '../stores/scene';
 
 const won = (n: number) => '₩ ' + n.toLocaleString('ko-KR');
 
@@ -29,29 +30,117 @@ export function AIAssistant() {
 
 function FloatingButton() {
   if (aiOpen.value) return null;
+  // Show attention-grabbing callout on Customize scene so users know AI
+  // consulting is available while shopping (spec v2 feedback).
+  const showCallout = currentScene.value === 'customize';
   return (
-    <button
-      class="fixed right-7 bottom-7 z-[60] w-16 h-16 rounded-full text-white text-2xl flex items-center justify-center shadow-2xl transition hover:scale-110 animate-pulse"
-      style={{
-        background: 'linear-gradient(135deg, var(--conran-accent), #a8471f)',
-        boxShadow:
-          '0 12px 40px -8px rgba(200,90,42,.7), 0 0 0 6px rgba(200,90,42,.15)',
-      }}
-      onClick={openAI}
-      aria-label="AI 어시스턴트 열기"
-    >
-      ✨
-    </button>
+    <>
+      {showCallout && (
+        <div
+          class="fixed right-[105px] bottom-10 z-[60] pointer-events-none animate-fade-in"
+          style={{ maxWidth: '220px' }}
+        >
+          <div
+            class="relative px-3.5 py-2 rounded-sm"
+            style={{
+              background: 'rgba(10,9,8,0.92)',
+              border: '1px solid rgba(184,147,90,0.5)',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+            }}
+          >
+            <div class="text-[9px] tracking-[0.25em] text-conran-gold font-bold uppercase mb-0.5">
+              AI Concierge
+            </div>
+            <div class="text-[11px] text-white leading-tight">
+              이 공간에 어울리는 가구를<br />AI 큐레이터에게 물어보세요
+            </div>
+            {/* arrow pointing to floating button */}
+            <div
+              style={{
+                position: 'absolute',
+                right: '-7px',
+                bottom: '18px',
+                width: '0',
+                height: '0',
+                borderTop: '7px solid transparent',
+                borderBottom: '7px solid transparent',
+                borderLeft: '8px solid rgba(10,9,8,0.92)',
+              }}
+            />
+          </div>
+        </div>
+      )}
+      <button
+        class="fixed right-7 bottom-7 z-[60] w-16 h-16 rounded-full text-white text-2xl flex items-center justify-center shadow-2xl transition hover:scale-110 animate-pulse"
+        style={{
+          background: 'linear-gradient(135deg, var(--conran-accent), #a8471f)',
+          boxShadow:
+            '0 12px 40px -8px rgba(200,90,42,.7), 0 0 0 6px rgba(200,90,42,.15)',
+        }}
+        onClick={openAI}
+        aria-label="AI 어시스턴트 열기"
+      >
+        ✨
+      </button>
+    </>
   );
 }
 
 function Panel() {
   return (
-    <div class="fixed right-7 bottom-7 z-[61] w-[400px] max-w-[calc(100vw-56px)] h-[560px] max-h-[calc(100vh-80px)] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden border border-conran-cream animate-slide-up">
+    <div class="fixed right-7 bottom-7 z-[61] w-[400px] max-w-[calc(100vw-56px)] h-[580px] max-h-[calc(100vh-80px)] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden border border-conran-cream animate-slide-up">
       <Header />
+      <BestsellerStrip />
       <Body />
       <QuickChips />
       <InputBar />
+    </div>
+  );
+}
+
+/**
+ * Steady bestseller quick-access strip (spec v2 p.13).
+ * Always-available top products for instant curation access.
+ */
+function BestsellerStrip() {
+  const ids = steadyBestsellers();
+  if (ids.length === 0) return null;
+  return (
+    <div class="border-t border-conran-cream bg-gradient-to-b from-[#1a1612] to-conran-black px-4 py-2.5">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[9px] tracking-[0.2em] text-conran-gold font-bold uppercase">
+          ⭐ 콘란샵 스테디셀러
+        </span>
+        <span class="text-[9px] text-white/40">Tap to view</span>
+      </div>
+      <div class="flex gap-1.5 overflow-x-auto pb-0.5" style={{ scrollbarWidth: 'none' }}>
+        {ids.map((pid) => {
+          const p = productById(pid);
+          if (!p) return null;
+          return (
+            <button
+              key={pid}
+              class="flex-shrink-0 w-11 h-11 rounded-sm overflow-hidden border border-white/20 hover:border-conran-accent transition bg-gray-100"
+              onClick={() => {
+                closeAI();
+                window.setTimeout(() => openProduct(pid, 'ai_bestseller'), 200);
+              }}
+              aria-label={p.name}
+              title={p.name + ' · ' + won(p.price)}
+            >
+              <img
+                src={p.img}
+                alt={p.name}
+                referrerPolicy="no-referrer"
+                class="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).style.visibility = 'hidden';
+                }}
+              />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

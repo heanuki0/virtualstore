@@ -104,6 +104,19 @@ export function Customize() {
       >
         <RoomsetPicker />
         <VariantToggle />
+        {hasPanorama && (
+          <div
+            class="absolute top-6 left-[280px] md:left-[320px] z-10 flex items-center gap-1.5 px-2.5 py-1.5 rounded-sm pointer-events-none"
+            style={{
+              background: 'rgba(10,9,8,0.75)',
+              border: '1px solid rgba(184,147,90,0.4)',
+              backdropFilter: 'blur(6px)',
+            }}
+          >
+            <span class="text-[10px] tracking-[0.15em] text-conran-gold font-bold">360°</span>
+            <span class="text-[9px] text-white/70 tracking-wider uppercase">Interactive</span>
+          </div>
+        )}
         {hasPanorama && stageRoom ? (
           <MarzipanoView
             key={`${stageRoom.id}:${variantId}`}
@@ -179,9 +192,17 @@ export function Customize() {
 
       <aside class="bg-white border-l border-conran-cream flex flex-col">
         <div class="px-7 pt-6 pb-4 border-b border-conran-cream">
-          <h3 class="serif text-xl m-0 mb-1">가구 고르기</h3>
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="serif text-xl m-0">가구 고르기</h3>
+            <span
+              class="text-[9px] font-bold px-1.5 py-0.5 rounded-sm bg-conran-accent/10 text-conran-accent tracking-wider"
+              title="콘란샵 이머시브 스토어 전용 20 SKU"
+            >
+              20 SKU
+            </span>
+          </div>
           <p class="text-xs text-gray-600 m-0">
-            카테고리를 선택하고 아이템을 클릭하면 공간에 배치됩니다.
+            콘란 시그니처 20선. 카테고리를 선택하고 아이템을 클릭하면 공간에 배치됩니다.
           </p>
         </div>
         <div class="flex gap-1 p-3 border-b border-conran-cream flex-wrap">

@@ -36,8 +36,16 @@ export function StylingShotCarousel({ room }: { room: Roomset }) {
       <section class="bg-conran-ink/95 border-t border-white/10 px-6 py-4">
         <div class="flex items-center justify-between mb-3">
           <div>
-            <div class="text-[10px] tracking-kern text-conran-gold font-bold uppercase mb-0.5">
-              Styling Shot Gallery
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="text-[10px] tracking-kern text-conran-gold font-bold uppercase">
+                Styling Shot Gallery
+              </span>
+              <span
+                class="text-[9px] font-bold px-1.5 py-0.5 rounded-sm bg-white/10 text-white/70 tracking-wider"
+                title="2D Lookbook images"
+              >
+                2D
+              </span>
             </div>
             <div class="text-xs text-white/70">
               {room.name}의 다양한 무드와 스타일링을 확인하세요
