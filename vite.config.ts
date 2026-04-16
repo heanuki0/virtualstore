@@ -10,6 +10,7 @@ import path from 'node:path';
  * - Marzipano를 별도 청크로 분리 (initial bundle 경량 유지)
  */
 export default defineConfig({
+  base: process.env.GITHUB_PAGES ? '/virtualstore/' : '/',
   plugins: [preact()],
   resolve: {
     alias: {
