@@ -60,7 +60,7 @@ export function App() {
     <>
       <HUD />
       <Breadcrumb />
-      <main class="pt-[114px]">
+      <main class="pt-[132px]">
         {scene === 'exterior' && <Exterior />}
         {scene === 'gate' && <Gate />}
         {scene === 'customize' && <Customize />}

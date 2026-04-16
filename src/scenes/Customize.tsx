@@ -92,7 +92,7 @@ export function Customize() {
   };
 
   return (
-    <section class="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[calc(100vh-114px)] animate-fade-in">
+    <section class="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[calc(100vh-132px)] animate-fade-in">
       <div
         class="relative overflow-hidden"
         style={{ background: STAGE_TINTS[dominantStyle.value] ?? STAGE_TINTS.minimal }}

@@ -133,7 +133,7 @@ export function Gate() {
   }, []);
 
   return (
-    <section class="relative min-h-[calc(100vh-114px)] bg-conran-black">
+    <section class="relative min-h-[calc(100vh-132px)] bg-conran-black">
       <div ref={ref} class="absolute inset-0" aria-label="콘란 경 하우스 입구 홀 파노라마" />
 
       {/* Bottom guidance overlay */}

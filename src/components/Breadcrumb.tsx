@@ -14,7 +14,7 @@ export function Breadcrumb() {
 
   return (
     <nav
-      class="fixed top-[76px] inset-x-0 z-[var(--z-breadcrumb)] px-8 py-2.5 bg-black/55 backdrop-blur-md text-gray-400 text-xs tracking-wide border-b border-white/5"
+      class="fixed top-[94px] inset-x-0 z-[var(--z-breadcrumb)] px-8 py-2.5 bg-black/55 backdrop-blur-md text-gray-400 text-xs tracking-wide border-b border-white/5"
       aria-label="navigation path"
     >
       <span>롯데백화점몰</span>
