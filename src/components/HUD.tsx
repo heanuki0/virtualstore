@@ -12,7 +12,7 @@ export function HUD() {
     <header class="fixed top-0 inset-x-0 z-[var(--z-hud)] flex justify-between items-center px-8 py-4 bg-black/70 backdrop-blur-md text-conran-off border-b border-white/10">
       <button
         class="flex items-center gap-3 cursor-pointer"
-        onClick={() => goScene('gallery')}
+        onClick={() => goScene('exterior')}
         aria-label="홈으로"
       >
         <div class="text-left">
