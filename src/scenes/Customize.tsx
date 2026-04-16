@@ -19,6 +19,7 @@ import {
 import { addToCart } from '../stores/cart';
 import { MarzipanoView } from '../viewer/Marzipano';
 import { openProduct } from '../stores/overlay';
+import { StylingShotCarousel } from '../components/StylingShotCarousel';
 import type { Category, Hotspot, Product } from '../data/schemas';
 
 const CATEGORIES: Array<{ key: Category; label: string; icon: string }> = [
@@ -92,7 +93,8 @@ export function Customize() {
   };
 
   return (
-    <section class="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[calc(100vh-132px)] animate-fade-in">
+    <div class="animate-fade-in">
+    <section class="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[calc(100vh-132px)]">
       <div
         class="relative overflow-hidden"
         style={{ background: STAGE_TINTS[dominantStyle.value] ?? STAGE_TINTS.minimal }}
@@ -209,6 +211,8 @@ export function Customize() {
         </div>
       </aside>
     </section>
+    {stageRoom && <StylingShotCarousel room={stageRoom} />}
+    </div>
   );
 }
 

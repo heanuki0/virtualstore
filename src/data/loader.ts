@@ -57,6 +57,9 @@ export async function loadAllData(): Promise<void> {
         v.equirect = rebase(v.equirect) ?? v.equirect;
       }
     }
+    for (const shot of room.stylingShots ?? []) {
+      shot.image = rebase(shot.image) ?? shot.image;
+    }
   }
 
   products.value = p;

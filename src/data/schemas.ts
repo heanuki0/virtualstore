@@ -72,6 +72,16 @@ export const Roomset = z.object({
   products: z.array(z.string().regex(/^P\d{2,3}$/)).min(1),
   desc: z.string(),
   aiHints: z.array(z.string()).default([]),
+  /** Optional styling shot gallery (spec v2 p.12). 5-7 lookbook images. */
+  stylingShots: z
+    .array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        image: z.string(),
+      }),
+    )
+    .default([]),
 });
 export type Roomset = z.infer<typeof Roomset>;
 
