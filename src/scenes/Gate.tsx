@@ -55,6 +55,9 @@ export function Gate() {
         }}
       />
 
+      {/* Top center "CONRAN HOUSE" signage (DOM overlay — DALL·E can't render text reliably) */}
+      <ConranHouseSignage />
+
       {/* Clickable zones — positioned in % so they scale with viewport */}
       <ZoneButton
         position="left"
@@ -69,6 +72,9 @@ export function Gate() {
         onClick={() => onZoneClick('exhibition')}
       />
       <AIZone onClick={() => onZoneClick('ai')} />
+
+      {/* Floor brass emblem (DOM overlay) */}
+      <FloorEmblem />
 
       {/* Bottom guidance + shortcut to Gallery */}
       <div class="absolute bottom-0 inset-x-0 z-10 pointer-events-none">
@@ -152,6 +158,98 @@ function ZoneButton({
         <div class="serif text-sm font-bold text-white mt-0.5">{korLabel}</div>
       </div>
     </button>
+  );
+}
+
+/* ─── Top arch signage "CONRAN HOUSE" ─── */
+
+function ConranHouseSignage() {
+  return (
+    <div
+      class="absolute top-[6%] left-1/2 -translate-x-1/2 z-10 pointer-events-none"
+      style={{ width: 'min(560px, 55vw)' }}
+      aria-hidden="true"
+    >
+      {/* SVG textPath arch — follows the top curve of the lobby archway */}
+      <svg viewBox="0 0 560 120" class="w-full h-auto overflow-visible">
+        <defs>
+          <path
+            id="conran-arch-path"
+            d="M 30 100 Q 280 -20 530 100"
+            fill="none"
+          />
+        </defs>
+        <text
+          fill="#d6b17a"
+          style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: '28px',
+            fontWeight: 700,
+            letterSpacing: '0.35em',
+            filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.85))',
+          }}
+        >
+          <textPath href="#conran-arch-path" startOffset="50%" textAnchor="middle">
+            CONRAN HOUSE
+          </textPath>
+        </text>
+      </svg>
+      <div
+        class="text-center mt-1 text-[10px] tracking-[0.5em] uppercase"
+        style={{ color: '#d6b17a', opacity: 0.8 }}
+      >
+        The Conran Shop · Gangnam
+      </div>
+    </div>
+  );
+}
+
+/* ─── Floor brass emblem ─── */
+
+function FloorEmblem() {
+  return (
+    <div
+      class="absolute left-1/2 -translate-x-1/2 bottom-[18%] z-[5] pointer-events-none"
+      style={{ width: '180px', height: '90px', perspective: '400px' }}
+      aria-hidden="true"
+    >
+      {/* Perspective-transformed brass ring + TCS monogram */}
+      <div
+        style={{
+          transform: 'rotateX(75deg) scale(1, 0.45)',
+          transformOrigin: 'center bottom',
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <svg viewBox="0 0 200 200" class="w-full h-full">
+          <defs>
+            <radialGradient id="brass-ring" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="rgba(184,147,90,0)" />
+              <stop offset="85%" stopColor="rgba(214,177,122,0.35)" />
+              <stop offset="100%" stopColor="rgba(184,147,90,0.8)" />
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="85" fill="none" stroke="url(#brass-ring)" strokeWidth="3" />
+          <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(214,177,122,0.25)" strokeWidth="1" />
+          <text
+            x="100"
+            y="112"
+            textAnchor="middle"
+            fill="#d6b17a"
+            style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: '36px',
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              opacity: 0.7,
+            }}
+          >
+            TCS
+          </text>
+        </svg>
+      </div>
+    </div>
   );
 }
 

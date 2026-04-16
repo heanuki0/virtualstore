@@ -50,99 +50,96 @@ HALL_SUFFIX = (
 VARIANTS = {
     "day": (
         "equirect.webp",  # re-uses existing filename; preview.jpg is generated from this variant
-        "LIGHTING: bright afternoon daylight from tall windows, soft diffused natural light, clean shadows, inviting and calm mood.",
+        "LIGHTING: bright even daylight, calm gallery brightness, soft diffused light, clean shadows, inviting and calm mood.",
     ),
     "sunset": (
         "sunset.webp",
-        "LIGHTING: golden hour sunset through the windows, long dramatic shadows, rich amber and rose tones painting the walls, warm rim light on furniture surfaces, romantic late afternoon mood.",
+        "LIGHTING: low-angle golden hour light, amber tones across walls and floor, long soft shadows, warm rim light on surfaces, romantic late afternoon mood.",
     ),
     "night": (
         "night.webp",
-        "LIGHTING: night-time interior, dark windows revealing city night lights in the distance, warm interior lamplight only (table lamps, floor lamp, pendant glowing), deep moody shadows, cozy after-dark atmosphere.",
+        "LIGHTING: night-time interior, only interior lamps glowing warm 2700K (table lamps, floor lamp, pendant), deep moody shadows, cinematic after-dark atmosphere.",
     ),
 }
 
 ROOMS = [
     {
         "id": "HALL",
-        "name": "Entry Hall",
+        "name": "Entry Hall (LAB→CLUB transition)",
         "prompt": (
-            "Interior of a grand luxury design showroom entrance hall, "
-            "SYMMETRICAL wide-angle equirectangular 360-degree panorama, "
-            "camera at center of hall looking straight ahead. "
+            "Interior entry hall of a Conran flagship design showroom, "
+            "SYMMETRICAL equirectangular 360-degree panorama, camera at centre "
+            "of hall facing forward. Dual-zone reveal: the hall itself is the "
+            "WHITE LAB aesthetic; the corridors at left and right reveal the "
+            "DARK CLUB aesthetic."
             ""
-            "DIRECTLY AHEAD at center: polished dark walnut concierge reception desk "
-            "with brass edge detail. Behind the desk stands a well-dressed young woman "
-            "in a tailored charcoal suit, hands resting on desk, professional smile. "
-            "Brass desk lamp and white flowers on desk. "
+            "DIRECTLY AHEAD at centre: a low white monolithic plinth, 1m high, "
+            "matte white lacquer, with one single cobalt-blue Alvar Aalto Savoy "
+            "vase on it. Behind the plinth stands a young woman concierge in a "
+            "tailored cream linen blazer, hands relaxed at her sides, calm "
+            "professional smile."
             ""
-            "LEFT SIDE: A wide open CORRIDOR leading deeper into the building, "
-            "the corridor opens into a modern living room at its end — "
-            "through the passage a deep blue velvet sofa, travertine coffee table "
-            "and FLOS Arco floor lamp are CLEARLY VISIBLE in warm afternoon light. "
-            "The corridor walls are cream stone with brass sconces. "
+            "LEFT CORRIDOR OPENING: a tall rectangular white-framed portal leading "
+            "into the CLUB zone — inside the corridor: oak herringbone parquet "
+            "floor, deep teal-green wall (Farrow & Ball Inchyra Blue tone), a "
+            "cognac leather armchair and travertine side table with a brass FLOS "
+            "Arco floor lamp clearly visible, warm 2700K spotlighting."
             ""
-            "RIGHT SIDE: A matching wide open CORRIDOR leading to a classic study — "
-            "through the passage dark walnut bookshelves filled with books, "
-            "a cognac leather chesterfield armchair and library lamp are CLEARLY VISIBLE. "
-            "Same cream stone corridor walls with brass sconces. "
+            "RIGHT CORRIDOR OPENING: a matching tall portal leading into a "
+            "mirrored CLUB zone — inside: oak herringbone parquet floor, deep "
+            "teal-green wall, a walnut String Furniture shelving unit with "
+            "curated ceramic objects and a single Louis Poulsen AJ table lamp "
+            "glowing, warm spotlighting."
             ""
-            "FLOOR: Polished cream marble with circular geometric inlay at center. "
-            "CEILING: High barrel-vaulted ceiling, ornate plasterwork, skylight dome "
-            "flooding hall with warm daylight, brass chandelier. "
-            "Tall potted trees flanking each corridor entrance. "
-            "ATMOSPHERE: Grand, symmetrical, welcoming British luxury showroom."
+            "FLOOR of the main hall: polished white micro-cement with a single "
+            "inlaid brushed-brass circle at centre. "
+            "CEILING of the main hall: matte white, exposed brushed-aluminium "
+            "service ducts running parallel, linear LED cove lighting producing "
+            "bright even daylight. "
+            "WALLS of the main hall: matte white with one large John-Booth-style "
+            "abstract mural in cobalt-blue, cadmium-yellow and signal-red."
+            ""
+            "Low density, strong negative space, museum-plinth spacing. "
+            "ATMOSPHERE: contemporary Conran gallery hall transitioning to a "
+            "warmer residential display zone on either side."
             + HALL_SUFFIX
         ),
     },
     {
-        "id": "R01",
-        "name": "Modern Sanctuary",
-        "prompt": (
-            "A modern Conran Shop living room. A deep blue velvet sofa centred, "
-            "travertine coffee table with rounded corners, FLOS Arco floor lamp "
-            "arching over the sofa, Berber handwoven rug on polished concrete, "
-            "floor-to-ceiling window on the right showing muted Riviera sea view, "
-            "warm taupe walls with one abstract canvas, soft diffused afternoon light."
-            + COMMON_SUFFIX
-        ),
-    },
-    {
         "id": "R02",
-        "name": "Classic English",
+        "name": "Conran Home Office (LAB)",
         "prompt": (
-            "A classic English library-lounge in London Mayfair style. "
-            "A cognac leather chesterfield sofa against dark green wainscoted walls, "
-            "solid oak dining table partially visible on the left, Anglepoise 1227 "
-            "desk lamp on a walnut console, Berber rug on herringbone oak flooring, "
-            "brass-framed artwork, crystal decanter, late afternoon warm glow from "
-            "tall sash windows, heritage English home atmosphere."
-            + COMMON_SUFFIX
-        ),
-    },
-    {
-        "id": "R03",
-        "name": "Mid-Century Lounge",
-        "prompt": (
-            "A mid-century Scandinavian 1960s lounge. A walnut lounge chair with "
-            "cream wool upholstery in Hans Wegner style, teak low table beside it, "
-            "FLOS Arco lamp arching above, terracotta and mustard textile cushions, "
-            "pale oak floor with a geometric Nanimarquina rug, large sliding window "
-            "opening to a pine forest, northern European daylight, serene uncluttered "
-            "Aalto architectural detailing."
-            + COMMON_SUFFIX
-        ),
-    },
-    {
-        "id": "R04",
-        "name": "Minimal Scandi",
-        "prompt": (
-            "A minimal Scandinavian living room in Copenhagen morning light. "
-            "An off-white linen modular sofa centred, clear glass console table on "
-            "the right, Artemide Tizio desk lamp in matte aluminium, pale jute rug "
-            "on light oak flooring, white walls with a single ceramic vase on a "
-            "floating oak shelf, tall window filtering pale northern light through "
-            "sheer curtains, extreme simplicity, negative space, magazine-quality calm."
+            "A Conran Home Office in the LAB zone aesthetic, equirectangular "
+            "360-degree panorama. Master palette: matte WHITE walls on all four "
+            "sides, matte WHITE ceiling with exposed brushed-aluminium service "
+            "ducts and a linear LED cove, polished white micro-cement floor, "
+            "white lacquered surfaces with minimal primary-color accent objects only."
+            ""
+            "CENTER OF FRAME: a solid white-oak Carl Hansen CH327 desk floating "
+            "in negative space, a Vitra Eames soft-pad executive chair tucked "
+            "under it, one Louis Poulsen AJ table lamp in cadmium-yellow, one "
+            "laptop closed, one ceramic pencil holder, nothing else on the "
+            "desk (low density)."
+            ""
+            "LEFT SIDE: a USM Haller modular credenza in signal-red, 150cm wide, "
+            "floating off the white wall, one Kartell Componibili cylinder in "
+            "cobalt-blue beside it on the floor, a single John-Booth-style "
+            "abstract mural above it."
+            ""
+            "RIGHT SIDE: a Vitra Eames Lounge Chair and ottoman in cognac leather "
+            "and black shell as the reading corner, an Isamu Noguchi Akari paper "
+            "floor lamp beside it, one HAY side stool as a side table with "
+            "a single stacked book."
+            ""
+            "BACK WALL: matte-white wall with a minimal floating white-oak String "
+            "Furniture shelving unit (3 shelves only), widely spaced with 1 "
+            "Iittala Aalto glass vase, 2 stacked hardcover books, and one small "
+            "ceramic object. Nothing more."
+            ""
+            "FLOOR: polished white micro-cement, a pale jute rug defining the "
+            "desk zone, otherwise strong negative space. No wooden beams, no "
+            "wooden columns, no hanok architecture — pure minimalist white "
+            "gallery space."
             + COMMON_SUFFIX
         ),
     },

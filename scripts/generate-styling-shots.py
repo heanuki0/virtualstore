@@ -33,73 +33,103 @@ def load_env(path: str = "C:/Cowork/.env") -> None:
 
 
 COMMON_SUFFIX = (
-    " Interior photography, warm editorial color grading, photorealistic, "
-    "magazine-quality, Kinfolk aesthetic, 16:9 wide-angle composition, "
-    "luxury home interior. No people, no text, no watermark."
+    " Interior retail photography, 16:9 wide-angle, carefully curated low-density "
+    "styling with strong negative space, museum-plinth spacing, editorial magazine "
+    "quality. Absolutely no text, no signage, no letters, no watermark, no people."
 )
 
 # Each shot gets its own mood/angle/furniture emphasis.
+# R01 = CLUB zone (deep teal + oak herringbone + brass + cognac leather)
+# R02 = LAB zone (matte white + exposed ducts + primary accents)
 THEMES = {
     "R01": {
-        "name": "Conran Livingroom",
+        "name": "Conran Livingroom (CLUB zone)",
         "base": (
-            "A luxurious modern Conran-style living room with deep blue velvet sofa, "
-            "travertine coffee table, FLOS Arco floor lamp arching overhead, "
-            "Berber handwoven rug on polished concrete floor, floor-to-ceiling windows, "
-            "cream walls, warm walnut accents, carefully curated art books."
+            "A Conran CLUB-zone lounge and dining scene. Palette: deep teal-green walls "
+            "(Farrow & Ball Inchyra Blue tone), matte black-painted ceiling with warm "
+            "recessed 2700K spotlights, oak herringbone parquet floor, brushed brass "
+            "trim, travertine stone surfaces, cognac leather, translucent frosted-glass "
+            "partition. Furniture: deep blue velvet Matthew Hilton Arbor 3-seater sofa, "
+            "Matthew Hilton Sloan cognac lounge chair + ottoman, round travertine coffee "
+            "table, FLOS Arco floor lamp, Carl Hansen CH327 dining table with 4 CH24 "
+            "Wishbone chairs, Louis Poulsen PH5 pendant, walnut String Furniture shelving. "
+            "Low density, strong negative space, curated museum-plinth styling."
         ),
         "shots": [
-            "Wide establishing shot from the entrance, afternoon natural light, "
-            "full view of sofa arrangement with coffee table centered.",
+            "Wide establishing shot from the brushed-brass archway doorway, afternoon "
+            "daylight filtering in, full view of the deep-teal lounge vignette with "
+            "the Matthew Hilton Arbor sofa centered, strong negative space on the "
+            "herringbone floor.",
 
-            "Close-up angle of the Eames-style lounge chair with ottoman beside the sofa, "
-            "warm late afternoon sun streaming through sheer curtains.",
+            "Close-up angle of the Matthew Hilton Sloan cognac-leather lounge chair "
+            "and ottoman beside the sofa, warm late afternoon rim light catching the "
+            "leather surface.",
 
-            "Top-down bird's eye view showing the Berber rug, coffee table placement, "
-            "and furniture layout from above — editorial composition.",
+            "Top-down bird's-eye view showing the herringbone parquet, travertine "
+            "coffee table, and Berber rug placement between the lounge and dining "
+            "zones — strict editorial composition.",
 
-            "Evening ambient mood with all lamps lit (Arco floor, table lamps), "
-            "warm amber glow, dark window showing city night lights outside.",
+            "Evening ambient mood with only the FLOS Arco, PH5 pendant and two "
+            "travertine table lamps lit, warm amber pools of light against deep teal "
+            "shadow, dark windows.",
 
-            "Side angle emphasizing the walnut sideboard with ceramic vase and art book stack, "
-            "soft morning light casting long shadows.",
+            "Side angle emphasizing the walnut String Furniture shelving unit "
+            "on the teal wall, curated with 3 widely-spaced ceramic objects and "
+            "stacked art books, soft spotlight.",
 
-            "Alternative furniture arrangement: sofa turned 90 degrees toward window, "
-            "coffee table repositioned, showcasing flexibility of the space.",
+            "Alternative arrangement: sofa turned 45 degrees toward the brass "
+            "archway, coffee table repositioned, one additional Iittala glass vase "
+            "on the travertine side table.",
 
-            "Detail shot of the reading corner with chesterfield chair, "
-            "floor lamp, and side table with bowl of fruit, cozy afternoon atmosphere."
+            "Detail shot of the CH327 dining table from the far end with Wishbone "
+            "chairs in profile, PH5 pendant glowing warmly overhead, Muuto ceramic "
+            "centerpiece catching the light."
         ],
     },
     "R02": {
-        "name": "Conran Home Office",
+        "name": "Conran Home Office (LAB zone)",
         "base": (
-            "A sophisticated Scandinavian home office with solid oak Carl Hansen CH327 "
-            "desk, Herman Miller Aeron chair, floor-to-ceiling String Furniture shelving "
-            "filled with books and art objects, Louis Poulsen AJ lamp, Eames lounge "
-            "chair in reading corner, textured wool rug, tall sash windows."
+            "A Conran LAB-zone home office. Palette: matte WHITE walls on all sides, "
+            "matte white ceiling with exposed brushed-aluminium service ducts and a "
+            "linear LED cove, polished white micro-cement floor, pale jute rug. "
+            "Furniture: solid white-oak Carl Hansen CH327 desk floating in negative "
+            "space, Vitra Eames soft-pad executive chair, Louis Poulsen AJ task lamp "
+            "in cadmium-yellow, USM Haller credenza in signal-red on the left wall, "
+            "Kartell Componibili cylinder in cobalt-blue on the floor, Vitra Eames "
+            "Lounge Chair in cognac leather + Noguchi Akari paper floor lamp in the "
+            "reading corner, floating white-oak String shelving on the back wall "
+            "with 3 objects only. One John-Booth-style abstract mural. No wooden "
+            "beams, no hanok — pure white gallery space. Low density, strong "
+            "negative space."
         ),
         "shots": [
-            "Wide establishing shot of the office from the doorway, bright morning daylight, "
-            "full view of desk arrangement with shelving backdrop.",
+            "Wide establishing shot of the LAB home office from the doorway, bright "
+            "even LED daylight, full view of the floating CH327 desk against the "
+            "matte-white wall, USM Haller signal-red credenza on the left, Eames "
+            "Lounge reading corner on the right.",
 
-            "Close-up of the desk workspace showing the AJ lamp glowing, "
-            "open books, and ceramic pen holder, late afternoon warm light.",
+            "Close-up of the desk workspace showing the cadmium-yellow AJ lamp "
+            "glowing, one closed laptop, ceramic pencil holder, nothing else — "
+            "low-density curation with strong negative space.",
 
-            "Top-down view of the room showing desk-chair-rug layout from above, "
-            "architectural editorial composition.",
+            "Top-down bird's-eye view showing the desk-chair-jute-rug layout and "
+            "the white micro-cement floor — editorial architectural composition.",
 
-            "Evening scene with desk lamp and ceiling pendants glowing, "
-            "warm intimate light, dark window hinting at night outside.",
+            "Evening scene with the LED cove dimmed and only the AJ task lamp "
+            "and Noguchi Akari floor lamp glowing warm 2700K, matte-white walls "
+            "in cinematic shadow.",
 
-            "Alternative angle emphasizing the Eames lounge chair reading corner "
-            "with floor lamp and side table of books, soft window light.",
+            "Alternative angle emphasizing the Eames Lounge reading corner with "
+            "the Akari paper lamp and a HAY side stool holding one hardcover book, "
+            "soft LED wash.",
 
-            "Rearranged layout: desk turned parallel to window, "
-            "shelving in background, more spacious feel.",
+            "Rearranged layout: desk turned parallel to the wall with the USM "
+            "credenza, the Eames lounge moved to face the opposite wall, more "
+            "spacious feel, same white palette.",
 
-            "Detail shot of the bookshelf styling with ceramic vases, sculptural objects, "
-            "framed art, and carefully arranged books, warm editorial light."
+            "Detail shot of the floating String Furniture shelving on the back "
+            "wall — one Iittala Aalto glass vase, two stacked books, one small "
+            "ceramic object, widely spaced, museum-plinth feel."
         ],
     },
 }

@@ -1,20 +1,24 @@
-"""Phase 7 v2 re-design — 6 DALL·E 3 image generations.
+"""Phase 8 — Conran LAB/CLUB palette regeneration (no text, no hanok).
 
-1. public/images/lobby.jpg        — 2D lobby illustration (flat hero image)
-2. public/panos/R01/equirect.webp — wide livingroom+dining, DAY (360° equirect)
-3. public/panos/R01/sunset.webp   — same wide view, SUNSET lighting
-4. public/panos/R01/night.webp    — same wide view, NIGHT lighting
-5. public/panos/R01/sofa.webp     — close-up sofa angle waypoint (360° equirect)
-6. public/panos/R01/dining.webp   — close-up dining angle waypoint (360° equirect)
+Generates the full set of panorama / image assets re-keyed to the real
+Gangnam-style LAB (1F white gallery) + CLUB (2F dark heritage) palette.
 
-Total: 6 × $0.12 (HD) = $0.72
-Runtime: ~90-120 seconds total.
+Hero batch (6 HD images):
+  1. public/images/lobby.jpg        — LAB 2D flat illustration (NO TEXT)
+  2. public/panos/R01/equirect.webp — CLUB day (living + dining)
+  3. public/panos/R01/sunset.webp   — CLUB sunset
+  4. public/panos/R01/night.webp    — CLUB night
+  5. public/panos/R01/sofa.webp     — CLUB sofa close-up waypoint
+  6. public/panos/R01/dining.webp   — CLUB dining close-up waypoint
+
+Total batch: 6 × $0.12 (HD) = $0.72
+HALL + R02 batch is in generate-ai-panoramas.py (also updated).
 
 Usage:
-    python scripts/generate-v2-phase7.py                  # all 6
-    python scripts/generate-v2-phase7.py --only lobby     # single
-    python scripts/generate-v2-phase7.py --only R01       # R01 main only (3)
-    python scripts/generate-v2-phase7.py --only waypoints # sofa + dining only
+    python scripts/generate-v2-phase7.py
+    python scripts/generate-v2-phase7.py --only lobby
+    python scripts/generate-v2-phase7.py --only R01
+    python scripts/generate-v2-phase7.py --only waypoints
 """
 import argparse
 import os
@@ -35,79 +39,102 @@ def load_env(path: str = "C:/Cowork/.env") -> None:
                 os.environ.setdefault(k, v)
 
 
+# ─── Shared suffixes ─────────────────────────────────────────────────────
+
+EQUIRECT_SUFFIX = (
+    " Wide-angle equirectangular 360-degree interior panorama, "
+    "strict 2:1 aspect ratio, seamless horizon, no tilted horizon line. "
+    "Architectural photography for a luxury design retailer, shallow curated "
+    "density with strong negative space between objects, museum-plinth spacing. "
+    "Photorealistic 8K detail. Absolutely no text, no signage, no letters, "
+    "no watermark, no people."
+)
+
 # ─── Prompts ──────────────────────────────────────────────────────────────
 
 LOBBY_PROMPT = (
-    "Flat 2D architectural illustration, centered symmetrical composition. "
-    "A grand Conran luxury lobby interior seen from front-center, like a "
-    "stage set or storefront diorama. "
-    "TOP CENTER: An ornate archway with engraved brass signage reading "
-    "'CONRAN HOUSE' on the arch, flanked by decorative plasterwork. "
-    "CENTER FLOOR: A polished circular emblem inlaid in cream marble. "
-    "LEFT WALL: A wide lit archway with 'CONSULT' brass label above, "
-    "interior visible through glass — a reception desk with a welcoming "
-    "hostess in charcoal suit, warm lamp light. "
-    "RIGHT WALL: A matching wide lit archway with 'EXHIBITION' brass label "
-    "above, interior visible — luxurious living room with blue velvet sofa "
-    "and FLOS Arco floor lamp, warmly lit. "
-    "Tall potted topiary trees flanking each archway. Brass wall sconces. "
-    "Cream stone walls with gold trim. Warm afternoon ambient light. "
-    "Style: contemporary architectural illustration, Kinfolk aesthetic, "
-    "editorial wide-angle 16:9, photorealistic 8K detail, "
-    "warm amber and cream palette. No people in the foreground, "
-    "no text labels on the floor, no watermark."
-)
-
-EQUIRECT_SUFFIX = (
-    " Wide-angle equirectangular 360-degree interior panorama, 2:1 aspect ratio, "
-    "architectural photography, warm editorial color grading, "
-    "photorealistic 8K detail, Kinfolk magazine aesthetic. "
-    "No people, no text, no watermark."
+    "Flat 2D architectural illustration of a Conran flagship lobby interior, "
+    "seen from front-centre in perfect symmetry, staged like a diorama stage-set. "
+    "Master palette: matte WHITE walls, matte WHITE vaulted ceiling with exposed "
+    "brushed-aluminium service ducts and a linear LED cove, polished white "
+    "micro-cement floor with a single inlaid brushed-brass circle at centre. "
+    "CENTER: an empty white monolithic reception plinth, 1.2m high, nothing on it "
+    "except two low cobalt-blue ceramic vessels. "
+    "LEFT ARCHWAY: a tall minimalist rectangular portal, interior visible through "
+    "— a white plinth showing a single FLOS Arco floor lamp and a deep-blue velvet "
+    "seat, warm amber glow behind. "
+    "RIGHT ARCHWAY: a matching rectangular portal, interior visible through "
+    "— a white plinth showing stacked art books and a cognac leather lounge chair "
+    "silhouette, warm amber glow behind. "
+    "A single cobalt-blue abstract John-Booth-style mural on the wall between "
+    "archways. Two matte-white spherical planters with olive topiary flanking the "
+    "centre plinth. Soft daylight from an unseen skylight. "
+    "CRITICAL: do NOT render any letters, words, labels, numbers, or signage "
+    "anywhere in the image. Absolutely zero text. All labels will be added as "
+    "HTML overlays later. "
+    "Contemporary architectural illustration, Conran minimal gallery aesthetic, "
+    "photorealistic 8K detail, editorial wide-angle 16:9, cool white + warm amber "
+    "dual palette, low density, strong negative space, no watermark, no people."
 )
 
 R01_BASE = (
-    "An expansive open-plan Conran-style LIVING ROOM + DINING AREA combined, "
-    "equirectangular 360-degree panorama. "
-    "LEFT SIDE OF FRAME: Living area with deep blue velvet 3-seater sofa, "
-    "Eames-style walnut lounge chair with ottoman, travertine coffee table, "
-    "FLOS Arco floor lamp arching overhead, Berber handwoven rug. "
-    "CENTER: Polished oak parquet flooring, floor-to-ceiling windows with sheer "
-    "curtains flooding the space with light. "
-    "RIGHT SIDE OF FRAME: Dining area with a solid oak Carl Hansen CH327 dining "
-    "table, six Wishbone chairs around it, Louis Poulsen PH5 pendant hanging over "
-    "the table, curated glass vase centerpiece. "
-    "Background: Cream walls with brass picture rail, built-in walnut shelving "
-    "with art books and ceramic objects, a single painting in each area. "
-    "Overall mood: spacious, curated, gallery-like, British heritage × modern."
+    "An expansive open-plan Conran lounge and dining scene in the CLUB zone "
+    "aesthetic, equirectangular 360-degree panorama. "
+    "CORE PALETTE: deep teal-green walls (Farrow & Ball Inchyra Blue tone), "
+    "matte black-painted ceiling with warm recessed 2700K spotlights, oak "
+    "herringbone parquet floor, brushed brass trim and a single brass archway, "
+    "travertine stone plinths, cognac leather, translucent frosted-glass partition "
+    "at one end. "
+    "LEFT HALF OF FRAME — living vignette: a deep blue velvet Matthew Hilton "
+    "Arbor three-seater sofa, a Matthew Hilton Sloan lounge chair and ottoman in "
+    "cognac leather beside it, a round travertine coffee table with two art books "
+    "and a single Iittala Aalto glass vase, a FLOS Arco floor lamp arching "
+    "overhead, a low-pile Berber handwoven rug. "
+    "CENTER: oak herringbone parquet stretching between the two vignettes, "
+    "completely clear floor space (strong negative space). "
+    "RIGHT HALF OF FRAME — dining vignette: a solid oak Carl Hansen CH327 dining "
+    "table, four Carl Hansen CH24 Wishbone chairs around it, one Louis Poulsen "
+    "PH5 pendant hanging low over the table, a single ceramic centerpiece (one "
+    "Muuto bowl, no clutter). "
+    "BACKGROUND: translucent frosted-glass partition on the far wall glowing "
+    "softly from behind, a single large abstract painting on the teal wall, a "
+    "built-in walnut String Furniture shelf with widely spaced art books and "
+    "three ceramic objects only (low density). "
+    "Curated museum-spacing density, nothing on the floor between vignettes, no "
+    "clutter, no stacked magazines, no houseplants."
 )
 
-R01_DAY    = R01_BASE + " LIGHTING: Bright afternoon daylight, soft diffused natural light from windows, crisp shadows, clean editorial atmosphere."
-R01_SUNSET = R01_BASE + " LIGHTING: Golden hour, amber and rose tones painting the walls, long dramatic shadows, warm rim light on furniture, romantic."
-R01_NIGHT  = R01_BASE + " LIGHTING: Night scene, interior lamps glowing (Arco, PH5, Wardour candles), dark windows showing twinkling city lights, deep cozy shadows."
+R01_DAY    = R01_BASE + " LIGHTING: calm afternoon daylight from an unseen side window, even soft fill, brass highlights, no harsh shadows."
+R01_SUNSET = R01_BASE + " LIGHTING: golden-hour rim light entering from the right, long soft shadows across the herringbone floor, amber glow on brass and leather, teal walls deepening to indigo in shadow."
+R01_NIGHT  = R01_BASE + " LIGHTING: night scene, exterior darkness, only interior lamps glowing — the PH5 pendant, the FLOS Arco, two small travertine table lamps — warm pools of light against deep teal shadow, cognac leather catching firelight reflections."
 
 R01_SOFA = (
-    "Close-up waypoint view within the same Conran living room. "
-    "Camera positioned beside the sofa, looking at the seating arrangement. "
-    "Foreground: deep blue velvet 3-seater sofa with silk cushions, "
-    "Eames-style walnut lounge chair and ottoman directly beside the camera, "
-    "travertine coffee table with art books and ceramic bowl. "
-    "Background: FLOS Arco floor lamp arching up, oak parquet floor, "
-    "Berber rug underfoot, soft afternoon window light. "
-    "Equirectangular panorama emphasizing the sofa zone, intimate scale. "
-    + EQUIRECT_SUFFIX
+    "Close-up waypoint view inside the same Conran CLUB lounge vignette. "
+    "Camera positioned beside the Matthew Hilton Arbor deep-blue-velvet sofa, "
+    "facing the seating arrangement. "
+    "Foreground: the sofa with two silk-linen cushions (one cognac, one cream), "
+    "a Matthew Hilton Sloan cognac-leather lounge chair directly beside the camera. "
+    "Midground: round travertine coffee table with two art books and a single "
+    "Iittala Aalto glass vase, nothing else. "
+    "Background: FLOS Arco floor lamp arching up, oak herringbone parquet, "
+    "deep teal-green wall, warm 2700K spotlight pool. "
+    "Intimate residential scale, low-density curated styling, strong negative "
+    "space on the floor. Matching palette to the main R01 panorama exactly."
 )
 
 R01_DINING = (
-    "Close-up waypoint view within the same Conran living/dining space. "
-    "Camera positioned beside the dining table, looking at the dining arrangement. "
-    "Foreground: solid oak Carl Hansen CH327 dining table with carefully set placemats, "
-    "Wishbone chairs on both sides, Iittala Aalto glass vase with white flowers, "
-    "brass cutlery. "
-    "Directly above: Louis Poulsen PH5 pendant lamp hanging over the table at close range. "
-    "Background: living area visible in distance (blue velvet sofa), "
-    "floor-to-ceiling windows with soft afternoon light, oak parquet floor. "
-    "Equirectangular panorama emphasizing the dining zone, intimate scale. "
-    + EQUIRECT_SUFFIX
+    "Close-up waypoint inside the same Conran CLUB dining vignette. "
+    "Camera positioned at one end of the solid oak Carl Hansen CH327 dining "
+    "table, looking down its length. "
+    "Foreground: table edge and one Carl Hansen CH24 Wishbone chair in profile. "
+    "Midground: three more Wishbone chairs around the table, Louis Poulsen PH5 "
+    "pendant hanging low and glowing softly overhead, one single Muuto ceramic "
+    "centerpiece. "
+    "Background: deep teal-green wall with a single framed abstract artwork, a "
+    "brushed-brass arch doorway revealing the translucent frosted-glass partition "
+    "beyond. Oak herringbone parquet floor with strong negative space. "
+    "Warm 2700K light pool under the pendant. Intimate scale, low-density "
+    "styling, curatorial feel. Matching palette to the main R01 panorama exactly."
 )
 
 
@@ -115,12 +142,12 @@ R01_DINING = (
 
 JOBS = [
     # (key, output_path, prompt, is_equirect_crop)
-    ("lobby",       "public/images/lobby.jpg",        LOBBY_PROMPT,          False),
-    ("R01_day",     "public/panos/R01/equirect.webp", R01_DAY + EQUIRECT_SUFFIX, True),
+    ("lobby",       "public/images/lobby.jpg",        LOBBY_PROMPT,               False),
+    ("R01_day",     "public/panos/R01/equirect.webp", R01_DAY    + EQUIRECT_SUFFIX, True),
     ("R01_sunset",  "public/panos/R01/sunset.webp",   R01_SUNSET + EQUIRECT_SUFFIX, True),
-    ("R01_night",   "public/panos/R01/night.webp",    R01_NIGHT + EQUIRECT_SUFFIX, True),
-    ("R01_sofa",    "public/panos/R01/sofa.webp",     R01_SOFA,              True),
-    ("R01_dining",  "public/panos/R01/dining.webp",   R01_DINING,            True),
+    ("R01_night",   "public/panos/R01/night.webp",    R01_NIGHT  + EQUIRECT_SUFFIX, True),
+    ("R01_sofa",    "public/panos/R01/sofa.webp",     R01_SOFA   + EQUIRECT_SUFFIX, True),
+    ("R01_dining",  "public/panos/R01/dining.webp",   R01_DINING + EQUIRECT_SUFFIX, True),
 ]
 
 
@@ -143,7 +170,6 @@ def generate_one(client, prompt: str) -> bytes:
 def save_image(img_bytes: bytes, out_path: Path, equirect_crop: bool, make_preview: bool) -> tuple[int, int]:
     img = Image.open(BytesIO(img_bytes)).convert("RGB")
     if equirect_crop:
-        # Center-crop to exact 2:1 aspect
         w, h = img.size
         target_h = w // 2
         if target_h < h:
@@ -158,7 +184,6 @@ def save_image(img_bytes: bytes, out_path: Path, equirect_crop: bool, make_previ
     if out_path.suffix == ".webp":
         img.save(out_path, "WebP", quality=86, method=6)
     else:
-        # lobby.jpg
         if max(img.size) > 1600:
             img.thumbnail((1600, 1600))
         img.save(out_path, "JPEG", quality=88, optimize=True)
@@ -173,7 +198,7 @@ def save_image(img_bytes: bytes, out_path: Path, equirect_crop: bool, make_previ
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", help="lobby | R01 | waypoints | a specific key (e.g. R01_sunset)")
+    ap.add_argument("--only", help="lobby | R01 | waypoints | a specific key")
     args = ap.parse_args()
 
     load_env()
@@ -189,13 +214,12 @@ def main() -> int:
 
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-    # Select jobs
     selected = JOBS
     if args.only:
         if args.only == "lobby":
             selected = [j for j in JOBS if j[0] == "lobby"]
         elif args.only == "R01":
-            selected = [j for j in JOBS if j[0].startswith("R01_") and j[0] in ("R01_day", "R01_sunset", "R01_night")]
+            selected = [j for j in JOBS if j[0] in ("R01_day", "R01_sunset", "R01_night")]
         elif args.only == "waypoints":
             selected = [j for j in JOBS if j[0] in ("R01_sofa", "R01_dining")]
         else:
