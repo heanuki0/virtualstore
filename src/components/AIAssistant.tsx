@@ -158,6 +158,7 @@ function CardList({ cards, roomset }: { cards: string[]; roomset?: string }) {
             <img
               src={r.hero}
               alt={r.name}
+              referrerPolicy="no-referrer"
               class="w-full aspect-[16/9] object-cover bg-gray-200"
               onError={(e) => {
                 const img = e.currentTarget as HTMLImageElement;
@@ -185,6 +186,7 @@ function CardList({ cards, roomset }: { cards: string[]; roomset?: string }) {
               <img
                 src={p.img}
                 alt={p.name}
+                referrerPolicy="no-referrer"
                 class="w-full aspect-square object-cover bg-gray-200"
                 onError={(e) => {
                   const img = e.currentTarget as HTMLImageElement;

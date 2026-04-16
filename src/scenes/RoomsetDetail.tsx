@@ -100,6 +100,7 @@ export function RoomsetDetail({ id }: { id: string }) {
               <img
                 src={p.img}
                 alt={p.name}
+                referrerPolicy="no-referrer"
                 class="w-full aspect-square object-cover bg-gray-200"
                 onError={(e) => ((e.currentTarget as HTMLImageElement).style.visibility = 'hidden')}
               />

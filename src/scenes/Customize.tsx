@@ -278,6 +278,7 @@ function RoomsetPicker() {
                 <img
                   src={r.hero}
                   alt={r.name}
+                  referrerPolicy="no-referrer"
                   class="w-[72px] h-[44px] object-cover rounded-sm bg-gray-800 flex-shrink-0"
                   onError={(e) => {
                     const img = e.currentTarget as HTMLImageElement;
@@ -314,6 +315,7 @@ function ItemRow({ p, selected, onClick }: { p: Product; selected: boolean; onCl
       <img
         src={p.img}
         alt={p.name}
+        referrerPolicy="no-referrer"
         class="w-[72px] h-[72px] object-cover rounded-sm bg-gray-200 flex-shrink-0"
         onError={(e) => ((e.currentTarget as HTMLImageElement).style.visibility = 'hidden')}
       />
