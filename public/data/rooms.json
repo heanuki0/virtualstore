@@ -21,11 +21,11 @@
       "hotspots": [
         { "id": "H01", "yaw": 12.5, "pitch": -8.2, "category": "sofa", "defaultProduct": "P01", "swappable": true },
         { "id": "H02", "yaw": -22.0, "pitch": -12.0, "category": "table", "defaultProduct": "P08", "swappable": true },
-        { "id": "H03", "yaw": 45.0, "pitch": 4.0, "category": "light", "defaultProduct": "P13", "swappable": true },
-        { "id": "H04", "yaw": 0.0, "pitch": -32.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
+        { "id": "H03", "yaw": 45.0, "pitch": 4.0, "category": "light", "defaultProduct": "P14", "swappable": true },
+        { "id": "H04", "yaw": 0.0, "pitch": -32.0, "category": "rug", "defaultProduct": "P20", "swappable": true },
         { "id": "H05", "yaw": -60.0, "pitch": -18.0, "category": "object", "defaultProduct": "P25", "swappable": true }
       ],
-      "products": ["P01", "P08", "P13", "P19", "P25"],
+      "products": ["P01", "P04", "P08", "P09", "P12", "P14", "P17", "P20", "P25", "P26"],
       "desc": "리비에라의 오후빛. 딥블루 벨벳 소파와 트래버틴 테이블이 어우러진 현대적 라운지.",
       "aiHints": ["모던", "거실", "리비에라", "800만원대"]
     },
@@ -49,10 +49,12 @@
       },
       "hotspots": [
         { "id": "H01", "yaw": 10.0, "pitch": -8.0, "category": "sofa", "defaultProduct": "P03", "swappable": true },
-        { "id": "H02", "yaw": -40.0, "pitch": -5.0, "category": "light", "defaultProduct": "P13", "swappable": true },
-        { "id": "H03", "yaw": 0.0, "pitch": -30.0, "category": "rug", "defaultProduct": "P19", "swappable": true }
+        { "id": "H02", "yaw": -30.0, "pitch": -12.0, "category": "table", "defaultProduct": "P10", "swappable": true },
+        { "id": "H03", "yaw": -40.0, "pitch": -5.0, "category": "light", "defaultProduct": "P13", "swappable": true },
+        { "id": "H04", "yaw": 0.0, "pitch": -30.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
+        { "id": "H05", "yaw": 50.0, "pitch": -15.0, "category": "object", "defaultProduct": "P29", "swappable": true }
       ],
-      "products": ["P03", "P13", "P19"],
+      "products": ["P03", "P10", "P13", "P19", "P21", "P29", "P24", "P27"],
       "desc": "런던 메이페어의 서재. 체스터필드와 버버 러그가 들려주는 영국 헤리티지.",
       "aiHints": ["클래식", "영국", "메이페어", "1500만원대"]
     },
@@ -76,10 +78,12 @@
       },
       "hotspots": [
         { "id": "H01", "yaw": 8.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P02", "swappable": true },
-        { "id": "H02", "yaw": 38.0, "pitch": -4.0, "category": "light", "defaultProduct": "P13", "swappable": true },
-        { "id": "H03", "yaw": -25.0, "pitch": -20.0, "category": "rug", "defaultProduct": "P19", "swappable": true }
+        { "id": "H02", "yaw": -25.0, "pitch": -10.0, "category": "table", "defaultProduct": "P07", "swappable": true },
+        { "id": "H03", "yaw": 38.0, "pitch": -4.0, "category": "light", "defaultProduct": "P18", "swappable": true },
+        { "id": "H04", "yaw": -25.0, "pitch": -20.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
+        { "id": "H05", "yaw": 55.0, "pitch": -12.0, "category": "object", "defaultProduct": "P27", "swappable": true }
       ],
-      "products": ["P02", "P13", "P19"],
+      "products": ["P02", "P05", "P07", "P13", "P18", "P19", "P27", "P30"],
       "desc": "1960년대 북유럽의 여유. 월넛과 크림 패브릭, FLOS Arco의 곡선.",
       "aiHints": ["미드센추리", "월넛", "600만원대"]
     },
@@ -102,12 +106,13 @@
         ]
       },
       "hotspots": [
-        { "id": "H01", "yaw": 5.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P02", "swappable": true },
-        { "id": "H02", "yaw": 45.0, "pitch": 0.0, "category": "light", "defaultProduct": "P13", "swappable": true },
-        { "id": "H03", "yaw": -20.0, "pitch": -26.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
-        { "id": "H04", "yaw": -55.0, "pitch": -10.0, "category": "object", "defaultProduct": "P23", "swappable": true }
+        { "id": "H01", "yaw": 5.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P06", "swappable": true },
+        { "id": "H02", "yaw": -20.0, "pitch": -10.0, "category": "table", "defaultProduct": "P11", "swappable": true },
+        { "id": "H03", "yaw": 45.0, "pitch": 0.0, "category": "light", "defaultProduct": "P15", "swappable": true },
+        { "id": "H04", "yaw": -20.0, "pitch": -26.0, "category": "rug", "defaultProduct": "P22", "swappable": true },
+        { "id": "H05", "yaw": -55.0, "pitch": -10.0, "category": "object", "defaultProduct": "P23", "swappable": true }
       ],
-      "products": ["P02", "P13", "P19", "P23"],
+      "products": ["P06", "P11", "P15", "P16", "P22", "P23", "P24", "P28"],
       "desc": "코펜하겐의 흰 벽. 리넨과 강화유리, 필요한 것만 남긴 여백의 미학.",
       "aiHints": ["미니멀", "스칸디", "코펜하겐", "400만원대"]
     }
