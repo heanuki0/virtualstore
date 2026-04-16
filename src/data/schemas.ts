@@ -82,6 +82,21 @@ export const Roomset = z.object({
       }),
     )
     .default([]),
+  /**
+   * Mood simulation arrangements (spec v2 p.11 Option 1 — 가구 배치 전환).
+   * Each arrangement is a furniture combo (slot preset).
+   * The "default" preset is implicit (room.products[] seed).
+   */
+  arrangements: z
+    .array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        /** Product IDs that define this arrangement (slot seeds). */
+        products: z.array(z.string().regex(/^P\d{2,3}$/)).min(1),
+      }),
+    )
+    .default([]),
 });
 export type Roomset = z.infer<typeof Roomset>;
 

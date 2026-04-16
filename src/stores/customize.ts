@@ -55,6 +55,28 @@ export function setActiveVariant(id: string): void {
   track('variant_switch', { variant_id: id, roomset_id: activeRoomsetId.value ?? '' });
 }
 
+/**
+ * Mood simulation — which arrangement preset is active (spec v2 p.11).
+ * Default 'a_default' (first preset in room.arrangements).
+ */
+export const activeArrangementId = signal<string>('a_default');
+
+export function setActiveArrangement(id: string): void {
+  const room = activeRoomset.value;
+  if (!room) return;
+  const arr = (room.arrangements ?? []).find((a) => a.id === id);
+  if (!arr) return;
+  activeArrangementId.value = id;
+  // Apply slot preset from the arrangement
+  const next: Slots = { ...EMPTY_SLOTS };
+  for (const pid of arr.products) {
+    const p = productById(pid);
+    if (p && !next[p.cat]) next[p.cat] = pid;
+  }
+  slots.value = next;
+  track('arrangement_switch', { arrangement_id: id, roomset_id: activeRoomsetId.value ?? '' });
+}
+
 export const selectedProducts = computed<Product[]>(() =>
   (Object.values(slots.value).filter(Boolean) as string[])
     .map(productById)
@@ -101,7 +123,14 @@ export function seedFromRoomset(arg: string | string[], productIds?: string[]): 
   } else {
     setActiveRoomset(arg);
     const r = roomsetById(arg);
-    pids = productIds ?? r?.products ?? [];
+    // If room has arrangements, use the first as seed (default preset).
+    const firstArrangement = r?.arrangements?.[0];
+    if (firstArrangement) {
+      activeArrangementId.value = firstArrangement.id;
+      pids = productIds ?? firstArrangement.products;
+    } else {
+      pids = productIds ?? r?.products ?? [];
+    }
   }
   const next: Slots = { ...EMPTY_SLOTS };
   for (const pid of pids) {

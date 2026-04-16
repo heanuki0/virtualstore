@@ -2,6 +2,7 @@ import { useEffect, useState } from 'preact/hooks';
 import { effect } from '@preact/signals';
 import { products, roomsets } from '../data/loader';
 import {
+  activeArrangementId,
   activeRoomset,
   activeRoomsetId,
   activeVariant,
@@ -10,6 +11,7 @@ import {
   dominantStyle,
   selectedCategory,
   selectedProducts,
+  setActiveArrangement,
   setActiveRoomset,
   setActiveVariant,
   setSlot,
@@ -66,8 +68,9 @@ export function Customize() {
       effect(() => {
         const r = activeRoomsetId.value;
         const v = activeVariantId.value;
+        const a = activeArrangementId.value;
         // eslint-disable-next-line no-console
-        console.log('[Customize/effect] room=' + r + ' variant=' + v);
+        console.log('[Customize/effect] room=' + r + ' variant=' + v + ' arr=' + a);
         forceTick((t) => (t + 1) | 0);
       }),
     [],
@@ -219,28 +222,63 @@ export function Customize() {
 function VariantToggle() {
   const room = activeRoomset.value;
   const variants = room?.panorama?.variants ?? [];
-  if (variants.length < 2) return null;
+  const arrangements = room?.arrangements ?? [];
+  const hasLighting = variants.length >= 2;
+  const hasArrangement = arrangements.length >= 2;
+  if (!hasLighting && !hasArrangement) return null;
   return (
-    <div class="absolute top-6 right-[304px] z-10 flex items-center gap-1 bg-black/75 backdrop-blur border border-white/20 rounded-full p-1">
-      {variants.map((v) => {
-        const active = v.id === activeVariantId.value;
-        return (
-          <button
-            key={v.id}
-            class={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition ${
-              active
-                ? 'bg-conran-accent text-white'
-                : 'text-conran-off hover:bg-white/10'
-            }`}
-            onClick={() => setActiveVariant(v.id)}
-            aria-pressed={active}
-            aria-label={`${v.label} 분위기`}
-          >
-            <span>{v.icon ?? ''}</span>
-            <span>{v.label}</span>
-          </button>
-        );
-      })}
+    <div class="absolute top-6 right-[304px] z-10 flex flex-col items-end gap-2">
+      {hasLighting && (
+        <div class="flex items-center gap-1 bg-black/75 backdrop-blur border border-white/20 rounded-full p-1">
+          <span class="pl-3 pr-1.5 text-[9px] tracking-wider text-conran-gold font-bold uppercase">
+            조명
+          </span>
+          {variants.map((v) => {
+            const active = v.id === activeVariantId.value;
+            return (
+              <button
+                key={v.id}
+                class={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition ${
+                  active
+                    ? 'bg-conran-accent text-white'
+                    : 'text-conran-off hover:bg-white/10'
+                }`}
+                onClick={() => setActiveVariant(v.id)}
+                aria-pressed={active}
+                aria-label={`${v.label} 분위기`}
+              >
+                <span>{v.icon ?? ''}</span>
+                <span>{v.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+      {hasArrangement && (
+        <div class="flex items-center gap-1 bg-black/75 backdrop-blur border border-white/20 rounded-full p-1">
+          <span class="pl-3 pr-1.5 text-[9px] tracking-wider text-conran-gold font-bold uppercase">
+            배치
+          </span>
+          {arrangements.map((a) => {
+            const active = a.id === activeArrangementId.value;
+            return (
+              <button
+                key={a.id}
+                class={`px-3 py-1.5 rounded-full text-xs font-semibold transition ${
+                  active
+                    ? 'bg-conran-accent text-white'
+                    : 'text-conran-off hover:bg-white/10'
+                }`}
+                onClick={() => setActiveArrangement(a.id)}
+                aria-pressed={active}
+                aria-label={`${a.label} 배치`}
+              >
+                {a.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
