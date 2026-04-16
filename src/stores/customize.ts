@@ -34,11 +34,22 @@ export const activeRoomset = computed(() => {
 export function setActiveRoomset(id: string): void {
   if (activeRoomsetId.value === id) return;
   activeRoomsetId.value = id;
+  // Reset waypoint when switching rooms — each room has its own waypoints.
+  activeWaypointId.value = null;
   track('roomset_stage_switch', { roomset_id: id });
 }
 
 /** Time-of-day variant id ('day' | 'sunset' | 'night' ...). */
 export const activeVariantId = signal<string>('day');
+
+/** Active waypoint id (null = main view). */
+export const activeWaypointId = signal<string | null>(null);
+
+export function setActiveWaypoint(id: string | null): void {
+  if (activeWaypointId.value === id) return;
+  activeWaypointId.value = id;
+  track('waypoint_switch', { waypoint_id: id ?? 'main', roomset_id: activeRoomsetId.value ?? '' });
+}
 
 export const activeVariant = computed(() => {
   const room = activeRoomset.value;

@@ -41,6 +41,10 @@
         { "id": "s5", "label": "사이드보드 스타일링", "image": "/images/styling/R01/shot5.jpg" },
         { "id": "s6", "label": "대체 배치", "image": "/images/styling/R01/shot6.jpg" },
         { "id": "s7", "label": "리딩 코너", "image": "/images/styling/R01/shot7.jpg" }
+      ],
+      "waypoints": [
+        { "id": "sofa",   "label": "소파 근거리", "equirect": "/panos/R01/sofa.webp",   "yaw": -35, "pitch": -10 },
+        { "id": "dining", "label": "다이닝 근거리", "equirect": "/panos/R01/dining.webp", "yaw": 35,  "pitch": -10 }
       ]
     },
     {

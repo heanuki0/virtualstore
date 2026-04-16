@@ -23,7 +23,13 @@ export interface MarzipanoViewProps {
   room: Roomset;
   /** Optional explicit equirect URL override (variant selection). Falls back to room.panorama.equirect. */
   equirectOverride?: string;
+  /** Active waypoint id. `null`/undefined = main view (panorama.equirect or variant). */
+  activeWaypointId?: string | null;
   onHotspotClick?: (h: Hotspot) => void;
+  /** Called when a waypoint pin is clicked (to switch camera position). */
+  onWaypointClick?: (waypointId: string) => void;
+  /** Called to return to main view from a waypoint (e.g. back button). */
+  onReturnMain?: () => void;
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -34,10 +40,19 @@ const CATEGORY_LABELS: Record<string, string> = {
   object: '소품',
 };
 
-export function MarzipanoView({ room, equirectOverride, onHotspotClick }: MarzipanoViewProps) {
+export function MarzipanoView({
+  room,
+  equirectOverride,
+  activeWaypointId,
+  onHotspotClick,
+  onWaypointClick,
+  onReturnMain,
+}: MarzipanoViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const onClickRef = useRef(onHotspotClick);
   onClickRef.current = onHotspotClick;
+  const onWpClickRef = useRef(onWaypointClick);
+  onWpClickRef.current = onWaypointClick;
 
   // Subscribe to the global variant signal via explicit `effect`. This works
   // regardless of whether the surrounding component auto-subscribes, so time
@@ -53,7 +68,14 @@ export function MarzipanoView({ room, equirectOverride, onHotspotClick }: Marzip
     [],
   );
 
-  const effectiveEquirect = equirectOverride ?? subscribedVariantUrl ?? room.panorama?.equirect;
+  // Waypoint wins over variant override when active (close-up shot), otherwise
+  // the variant (day/sunset/night) decides the main-view image.
+  const waypoint = activeWaypointId
+    ? room.waypoints?.find((w) => w.id === activeWaypointId)
+    : undefined;
+  const effectiveEquirect = waypoint
+    ? waypoint.equirect
+    : equirectOverride ?? subscribedVariantUrl ?? room.panorama?.equirect;
 
   useEffect(() => {
     if (!ref.current || !room.panorama) return;
@@ -117,6 +139,8 @@ export function MarzipanoView({ room, equirectOverride, onHotspotClick }: Marzip
         pinFirstLevel: true,
       } as Record<string, unknown>);
 
+      // Only show furniture hotspots on main view.
+      // In waypoint close-ups we still show them — they're often more accessible there.
       for (const h of room.hotspots) {
         const el = createHotspotEl(h);
         el.addEventListener('click', () => onClickRef.current?.(h));
@@ -124,6 +148,18 @@ export function MarzipanoView({ room, equirectOverride, onHotspotClick }: Marzip
           yaw: (h.yaw * Math.PI) / 180,
           pitch: (h.pitch * Math.PI) / 180,
         });
+      }
+
+      // Waypoint pins (only on main view, not when inside a waypoint)
+      if (!activeWaypointId) {
+        for (const w of room.waypoints ?? []) {
+          const el = createWaypointEl(w.label);
+          el.addEventListener('click', () => onWpClickRef.current?.(w.id));
+          scene.hotspotContainer().createHotspot(el, {
+            yaw: (w.yaw * Math.PI) / 180,
+            pitch: (w.pitch * Math.PI) / 180,
+          });
+        }
       }
 
       scene.switchTo();
@@ -136,9 +172,64 @@ export function MarzipanoView({ room, equirectOverride, onHotspotClick }: Marzip
       cancelled = true;
       viewer?.destroy();
     };
-  }, [room.id, effectiveEquirect]);
+  }, [room.id, effectiveEquirect, activeWaypointId]);
 
-  return <div ref={ref} class="absolute inset-0 bg-conran-black" aria-label={`${room.name} 파노라마 뷰`} />;
+  return (
+    <div class="absolute inset-0">
+      <div
+        ref={ref}
+        class="absolute inset-0 bg-conran-black"
+        aria-label={`${room.name} 파노라마 뷰`}
+      />
+      {activeWaypointId && onReturnMain && (
+        <button
+          onClick={onReturnMain}
+          class="absolute top-6 right-6 z-20 px-4 py-2 rounded-sm text-xs font-semibold tracking-wider uppercase text-white hover:bg-conran-accent transition"
+          style={{
+            background: 'rgba(10,9,8,0.85)',
+            border: '1px solid rgba(184,147,90,0.5)',
+            backdropFilter: 'blur(6px)',
+          }}
+        >
+          ← 전체 뷰로 돌아가기
+        </button>
+      )}
+    </div>
+  );
+}
+
+function createWaypointEl(label: string): HTMLDivElement {
+  const el = document.createElement('div');
+  el.className = 'waypoint-pin';
+  el.style.cssText = 'position:absolute;transform:translate(-50%,-50%);cursor:pointer;';
+  el.innerHTML = `
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+      <div style="
+        width:44px;height:44px;border-radius:50%;
+        background:rgba(90,122,191,0.88);
+        border:3px solid #fff;
+        box-shadow:0 6px 22px rgba(0,0,0,0.55);
+        display:flex;align-items:center;justify-content:center;
+        animation:wpPulse 2.4s ease-in-out infinite;
+        font-size:20px;
+      ">👁</div>
+      <div style="
+        margin-top:8px;padding:4px 12px;
+        background:rgba(10,10,10,0.88);color:#fff;
+        font-size:11px;font-weight:600;letter-spacing:0.04em;
+        border-radius:2px;white-space:nowrap;
+        border:1px solid rgba(184,147,90,0.45);
+        pointer-events:none;
+      ">${label}</div>
+    </div>
+    <style>
+      @keyframes wpPulse {
+        0%,100% { transform:scale(1); box-shadow:0 6px 22px rgba(0,0,0,0.55),0 0 0 0 rgba(90,122,191,0.5); }
+        50%     { transform:scale(1.08); box-shadow:0 6px 22px rgba(0,0,0,0.55),0 0 0 14px rgba(90,122,191,0); }
+      }
+    </style>
+  `;
+  return el;
 }
 
 function createHotspotEl(h: Hotspot): HTMLDivElement {

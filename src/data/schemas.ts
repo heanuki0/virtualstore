@@ -97,6 +97,24 @@ export const Roomset = z.object({
       }),
     )
     .default([]),
+  /**
+   * Multi-scene waypoints for virtual tour (spec v2 p.6).
+   * Each waypoint is an alternate camera position in the same room.
+   * Clicking a waypoint switches the Marzipano scene.
+   * The "main" waypoint is implicit (panorama.equirect, default view).
+   */
+  waypoints: z
+    .array(
+      z.object({
+        id: z.string(),
+        label: z.string(),
+        equirect: z.string(),
+        /** Yaw in degrees — where this waypoint's pin appears from the main view. */
+        yaw: z.number(),
+        pitch: z.number().default(-4),
+      }),
+    )
+    .default([]),
 });
 export type Roomset = z.infer<typeof Roomset>;
 

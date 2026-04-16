@@ -7,6 +7,7 @@ import {
   activeRoomsetId,
   activeVariant,
   activeVariantId,
+  activeWaypointId,
   customizeTotal,
   dominantStyle,
   selectedCategory,
@@ -14,6 +15,7 @@ import {
   setActiveArrangement,
   setActiveRoomset,
   setActiveVariant,
+  setActiveWaypoint,
   setSlot,
   slots,
   toggleSlot,
@@ -69,8 +71,9 @@ export function Customize() {
         const r = activeRoomsetId.value;
         const v = activeVariantId.value;
         const a = activeArrangementId.value;
+        const w = activeWaypointId.value;
         // eslint-disable-next-line no-console
-        console.log('[Customize/effect] room=' + r + ' variant=' + v + ' arr=' + a);
+        console.log('[Customize/effect] room=' + r + ' variant=' + v + ' arr=' + a + ' wp=' + w);
         forceTick((t) => (t + 1) | 0);
       }),
     [],
@@ -119,10 +122,13 @@ export function Customize() {
         )}
         {hasPanorama && stageRoom ? (
           <MarzipanoView
-            key={`${stageRoom.id}:${variantId}`}
+            key={`${stageRoom.id}:${variantId}:${activeWaypointId.value ?? 'main'}`}
             room={stageRoom}
             equirectOverride={variant?.equirect}
+            activeWaypointId={activeWaypointId.value}
             onHotspotClick={onHotspotClick}
+            onWaypointClick={(id) => setActiveWaypoint(id)}
+            onReturnMain={() => setActiveWaypoint(null)}
           />
         ) : (
           <svg

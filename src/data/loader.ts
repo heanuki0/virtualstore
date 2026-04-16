@@ -60,6 +60,9 @@ export async function loadAllData(): Promise<void> {
     for (const shot of room.stylingShots ?? []) {
       shot.image = rebase(shot.image) ?? shot.image;
     }
+    for (const wp of room.waypoints ?? []) {
+      wp.equirect = rebase(wp.equirect) ?? wp.equirect;
+    }
   }
 
   products.value = p;
