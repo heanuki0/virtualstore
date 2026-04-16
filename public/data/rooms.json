@@ -2,11 +2,11 @@
   "roomsets": [
     {
       "id": "R01",
-      "name": "Modern Sanctuary",
-      "concept": "모던 생추어리",
+      "name": "Conran Livingroom",
+      "concept": "콘란 헤리티지 리빙룸",
       "style": "modern",
-      "priceMin": 8000000,
-      "priceTag": "800만원~",
+      "priceMin": 25000000,
+      "priceTag": "2,500만원~",
       "hero": "/panos/R01/preview.jpg",
       "panorama": {
         "equirect": "/panos/R01/equirect.webp",
@@ -20,22 +20,22 @@
       },
       "hotspots": [
         { "id": "H01", "yaw": 12.5, "pitch": -8.2, "category": "sofa", "defaultProduct": "P01", "swappable": true },
-        { "id": "H02", "yaw": -22.0, "pitch": -12.0, "category": "table", "defaultProduct": "P08", "swappable": true },
-        { "id": "H03", "yaw": 45.0, "pitch": 4.0, "category": "light", "defaultProduct": "P14", "swappable": true },
-        { "id": "H04", "yaw": 0.0, "pitch": -32.0, "category": "rug", "defaultProduct": "P20", "swappable": true },
-        { "id": "H05", "yaw": -60.0, "pitch": -18.0, "category": "object", "defaultProduct": "P25", "swappable": true }
+        { "id": "H02", "yaw": -22.0, "pitch": -12.0, "category": "table", "defaultProduct": "P05", "swappable": true },
+        { "id": "H03", "yaw": 45.0, "pitch": 4.0, "category": "light", "defaultProduct": "P10", "swappable": true },
+        { "id": "H04", "yaw": 0.0, "pitch": -32.0, "category": "rug", "defaultProduct": "P15", "swappable": true },
+        { "id": "H05", "yaw": -60.0, "pitch": -18.0, "category": "object", "defaultProduct": "P17", "swappable": true }
       ],
-      "products": ["P01", "P04", "P08", "P09", "P12", "P14", "P17", "P20", "P25", "P26"],
-      "desc": "리비에라의 오후빛. 딥블루 벨벳 소파와 트래버틴 테이블이 어우러진 현대적 라운지.",
-      "aiHints": ["모던", "거실", "리비에라", "800만원대"]
+      "products": ["P01", "P02", "P04", "P05", "P06", "P08", "P10", "P11", "P12", "P15", "P17", "P18", "P19", "P20"],
+      "desc": "콘란 헤리티지를 담은 컨템포러리 리빙룸. 하퍼 소파와 임스 라운지, 노구치 커피 테이블이 어우러지는 럭셔리 라운지 공간.",
+      "aiHints": ["리빙룸", "거실", "모던", "미드센추리", "헤리티지"]
     },
     {
       "id": "R02",
-      "name": "Classic English",
-      "concept": "클래식 잉글리시",
+      "name": "Conran Home Office",
+      "concept": "지적이고 클래식한 콘란 스타일의 홈 오피스",
       "style": "classic",
-      "priceMin": 15000000,
-      "priceTag": "1,500만원~",
+      "priceMin": 22000000,
+      "priceTag": "2,200만원~",
       "hero": "/panos/R02/preview.jpg",
       "panorama": {
         "equirect": "/panos/R02/equirect.webp",
@@ -49,72 +49,14 @@
       },
       "hotspots": [
         { "id": "H01", "yaw": 10.0, "pitch": -8.0, "category": "sofa", "defaultProduct": "P03", "swappable": true },
-        { "id": "H02", "yaw": -30.0, "pitch": -12.0, "category": "table", "defaultProduct": "P10", "swappable": true },
+        { "id": "H02", "yaw": -30.0, "pitch": -12.0, "category": "table", "defaultProduct": "P07", "swappable": true },
         { "id": "H03", "yaw": -40.0, "pitch": -5.0, "category": "light", "defaultProduct": "P13", "swappable": true },
-        { "id": "H04", "yaw": 0.0, "pitch": -30.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
-        { "id": "H05", "yaw": 50.0, "pitch": -15.0, "category": "object", "defaultProduct": "P29", "swappable": true }
+        { "id": "H04", "yaw": 0.0, "pitch": -30.0, "category": "rug", "defaultProduct": "P16", "swappable": true },
+        { "id": "H05", "yaw": 50.0, "pitch": -15.0, "category": "object", "defaultProduct": "P19", "swappable": true }
       ],
-      "products": ["P03", "P10", "P13", "P19", "P21", "P29", "P24", "P27"],
-      "desc": "런던 메이페어의 서재. 체스터필드와 버버 러그가 들려주는 영국 헤리티지.",
-      "aiHints": ["클래식", "영국", "메이페어", "1500만원대"]
-    },
-    {
-      "id": "R03",
-      "name": "Mid-Century Lounge",
-      "concept": "미드센추리 라운지",
-      "style": "mid-century",
-      "priceMin": 6000000,
-      "priceTag": "600만원~",
-      "hero": "/panos/R03/preview.jpg",
-      "panorama": {
-        "equirect": "/panos/R03/equirect.webp",
-        "previewUrl": "/panos/R03/preview.jpg",
-        "levels": [],
-        "variants": [
-          { "id": "day",    "label": "오후", "icon": "☀️", "equirect": "/panos/R03/equirect.webp" },
-          { "id": "sunset", "label": "석양", "icon": "🌆", "equirect": "/panos/R03/sunset.webp"   },
-          { "id": "night",  "label": "밤",   "icon": "🌙", "equirect": "/panos/R03/night.webp"    }
-        ]
-      },
-      "hotspots": [
-        { "id": "H01", "yaw": 8.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P02", "swappable": true },
-        { "id": "H02", "yaw": -25.0, "pitch": -10.0, "category": "table", "defaultProduct": "P07", "swappable": true },
-        { "id": "H03", "yaw": 38.0, "pitch": -4.0, "category": "light", "defaultProduct": "P18", "swappable": true },
-        { "id": "H04", "yaw": -25.0, "pitch": -20.0, "category": "rug", "defaultProduct": "P19", "swappable": true },
-        { "id": "H05", "yaw": 55.0, "pitch": -12.0, "category": "object", "defaultProduct": "P27", "swappable": true }
-      ],
-      "products": ["P02", "P05", "P07", "P13", "P18", "P19", "P27", "P30"],
-      "desc": "1960년대 북유럽의 여유. 월넛과 크림 패브릭, FLOS Arco의 곡선.",
-      "aiHints": ["미드센추리", "월넛", "600만원대"]
-    },
-    {
-      "id": "R04",
-      "name": "Minimal Scandi",
-      "concept": "미니멀 스칸디",
-      "style": "minimal",
-      "priceMin": 4000000,
-      "priceTag": "400만원~",
-      "hero": "/panos/R04/preview.jpg",
-      "panorama": {
-        "equirect": "/panos/R04/equirect.webp",
-        "previewUrl": "/panos/R04/preview.jpg",
-        "levels": [],
-        "variants": [
-          { "id": "day",    "label": "오후", "icon": "☀️", "equirect": "/panos/R04/equirect.webp" },
-          { "id": "sunset", "label": "석양", "icon": "🌆", "equirect": "/panos/R04/sunset.webp"   },
-          { "id": "night",  "label": "밤",   "icon": "🌙", "equirect": "/panos/R04/night.webp"    }
-        ]
-      },
-      "hotspots": [
-        { "id": "H01", "yaw": 5.0, "pitch": -6.0, "category": "sofa", "defaultProduct": "P06", "swappable": true },
-        { "id": "H02", "yaw": -20.0, "pitch": -10.0, "category": "table", "defaultProduct": "P11", "swappable": true },
-        { "id": "H03", "yaw": 45.0, "pitch": 0.0, "category": "light", "defaultProduct": "P15", "swappable": true },
-        { "id": "H04", "yaw": -20.0, "pitch": -26.0, "category": "rug", "defaultProduct": "P22", "swappable": true },
-        { "id": "H05", "yaw": -55.0, "pitch": -10.0, "category": "object", "defaultProduct": "P23", "swappable": true }
-      ],
-      "products": ["P06", "P11", "P15", "P16", "P22", "P23", "P24", "P28"],
-      "desc": "코펜하겐의 흰 벽. 리넨과 강화유리, 필요한 것만 남긴 여백의 미학.",
-      "aiHints": ["미니멀", "스칸디", "코펜하겐", "400만원대"]
+      "products": ["P02", "P03", "P06", "P07", "P08", "P09", "P10", "P13", "P14", "P16", "P17", "P18", "P19", "P20"],
+      "desc": "스칸디나비안 헤리티지의 지적 우아함. 에어론 체어와 CH327 데스크, 스트링 쉘빙이 구성하는 품격 있는 워크 스페이스.",
+      "aiHints": ["홈오피스", "서재", "스칸디나비안", "워크스페이스", "미니멀"]
     }
   ]
 }
