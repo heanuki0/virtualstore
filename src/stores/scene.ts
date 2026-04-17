@@ -8,7 +8,7 @@ export type SceneId =
   | 'gallery'
   | `roomset/${string}`; // parametric
 
-export const currentScene = signal<SceneId>('exterior');
+export const currentScene = signal<SceneId>('gate');
 
 const LABELS: Record<string, string> = {
   exterior: '외관',

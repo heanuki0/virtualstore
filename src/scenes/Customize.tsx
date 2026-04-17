@@ -100,7 +100,7 @@ export function Customize() {
 
   return (
     <div class="animate-fade-in">
-    <section class="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[calc(100vh-132px)]">
+    <section class="grid grid-cols-1 lg:grid-cols-[1fr_380px] min-h-[calc(100vh-90px)]">
       <div
         class="relative overflow-hidden"
         style={{ background: STAGE_TINTS[dominantStyle.value] ?? STAGE_TINTS.minimal }}
@@ -310,63 +310,45 @@ function VariantToggle() {
   );
 }
 
+/**
+ * Room toggle — spec p.9 "LIVING" pill toggle (top-right of panorama).
+ * Simple 2-option toggle matching the spec mockup.
+ */
 function RoomsetPicker() {
-  const [open, setOpen] = useState(false);
   const current = activeRoomset.value;
   const list = roomsets.value;
-  if (!current) return null;
+  if (!current || list.length < 2) return null;
+
+  const LABELS: Record<string, string> = {
+    R01: 'LIVING',
+    R02: 'OFFICE',
+  };
+
   return (
-    <div class="absolute top-6 left-6 z-10">
-      <button
-        class="flex items-center gap-3 bg-black/75 backdrop-blur border border-white/20 rounded-sm px-3.5 py-2.5 text-conran-off hover:border-conran-accent transition"
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        aria-label="룸셋 전환"
+    <div class="absolute top-6 right-6 z-10">
+      <div
+        class="flex items-center rounded-full overflow-hidden border border-gray-300 bg-white/90 backdrop-blur shadow-sm"
+        role="tablist"
       >
-        <span class="text-[10px] tracking-kern text-conran-gold font-bold uppercase">
-          Current Stage
-        </span>
-        <span class="text-sm font-semibold">{current.name}</span>
-        <span class={`text-xs transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
-      </button>
-      {open && (
-        <div class="mt-2 bg-black/85 backdrop-blur border border-white/15 rounded-sm overflow-hidden min-w-[280px] shadow-2xl">
-          {list.map((r) => {
-            const active = r.id === current.id;
-            return (
-              <button
-                key={r.id}
-                class={`w-full flex gap-3 p-2.5 items-center text-left border-b border-white/5 transition ${
-                  active ? 'bg-conran-accent/20' : 'hover:bg-white/10'
-                }`}
-                onClick={() => {
-                  setActiveRoomset(r.id);
-                  setOpen(false);
-                }}
-              >
-                <img
-                  src={r.hero}
-                  alt={r.name}
-                  referrerPolicy="no-referrer"
-                  class="w-[72px] h-[44px] object-cover rounded-sm bg-gray-800 flex-shrink-0"
-                  onError={(e) => {
-                    const img = e.currentTarget as HTMLImageElement;
-                    img.style.visibility = 'hidden';
-                  }}
-                />
-                <div class="flex-1 min-w-0">
-                  <div class="text-[10px] tracking-wider text-conran-gold font-bold uppercase">
-                    {r.concept}
-                  </div>
-                  <div class="text-sm text-conran-off font-semibold truncate">{r.name}</div>
-                  <div class="text-[10px] text-gray-400">{r.priceTag}</div>
-                </div>
-                {active && <span class="text-conran-accent text-xs">●</span>}
-              </button>
-            );
-          })}
-        </div>
-      )}
+        {list.map((r) => {
+          const active = r.id === current.id;
+          return (
+            <button
+              key={r.id}
+              role="tab"
+              aria-selected={active}
+              class={`px-5 py-2 text-xs font-bold tracking-wider uppercase transition ${
+                active
+                  ? 'bg-conran-ink text-white'
+                  : 'bg-transparent text-gray-500 hover:text-conran-ink'
+              }`}
+              onClick={() => setActiveRoomset(r.id)}
+            >
+              {LABELS[r.id] ?? r.name}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }

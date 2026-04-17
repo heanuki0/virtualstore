@@ -30,8 +30,9 @@ export function App() {
   useEffect(() => {
     // hash router: #/customize → scene 'customize'
     const sync = () => {
-      const hash = location.hash.replace(/^#\//, '') || 'exterior';
-      goScene(hash as never);
+      const hash = location.hash.replace(/^#\//, '') || 'gate';
+      // Redirect exterior to gate (spec doesn't include exterior scene)
+      goScene((hash === 'exterior' ? 'gate' : hash) as never);
     };
     sync();
     window.addEventListener('hashchange', sync);
@@ -60,7 +61,7 @@ export function App() {
     <>
       <HUD />
       <Breadcrumb />
-      <main class="pt-[132px]">
+      <main class="pt-[90px]">
         {scene === 'exterior' && <Exterior />}
         {scene === 'gate' && <Gate />}
         {scene === 'customize' && <Customize />}

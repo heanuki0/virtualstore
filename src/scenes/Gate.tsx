@@ -35,7 +35,7 @@ function onZoneClick(id: ZoneId): void {
 
 export function Gate() {
   return (
-    <section class="relative min-h-[calc(100vh-132px)] bg-conran-black overflow-hidden">
+    <section class="relative min-h-[calc(100vh-90px)] bg-conran-black overflow-hidden">
       {/* 2D lobby illustration background */}
       <div
         class="absolute inset-0 animate-fade-in"
