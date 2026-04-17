@@ -165,7 +165,7 @@ export function ProductOverlay() {
 function TabBar({ current, onChange, has3D }: { current: Tab; onChange: (t: Tab) => void; has3D: boolean }) {
   const tabs: Array<{ id: Tab; label: string; disabled?: boolean }> = [
     { id: 'image', label: '이미지' },
-    { id: '3d', label: '3D 돌려보기', disabled: !has3D },
+    { id: '3d', label: '3D · AR 배치', disabled: !has3D },
     { id: 'room', label: '예상 인테리어' },
   ];
   return (
@@ -196,8 +196,12 @@ function TabBar({ current, onChange, has3D }: { current: Tab; onChange: (t: Tab)
 function ThreeDView({ model }: { model?: string }) {
   if (!model) {
     return (
-      <div class="absolute inset-0 flex items-center justify-center text-gray-400 text-sm bg-[#f5f2ec]">
-        3D 모델 준비중입니다.
+      <div class="absolute inset-0 flex flex-col items-center justify-center text-gray-400 text-sm bg-[#f5f2ec] px-8 text-center gap-3">
+        <div class="text-3xl">🪑</div>
+        <div>3D 모델 준비중입니다.</div>
+        <div class="text-[11px] text-gray-300">
+          모델이 준비되면 360° 회전 + AR 공간 배치 기능이 활성화됩니다.
+        </div>
       </div>
     );
   }
@@ -220,8 +224,22 @@ function ThreeDView({ model }: { model?: string }) {
           shadow-intensity="0.8"
           shadow-softness="0.7"
           environment-image="neutral"
-          style="width:100%;height:100%;background:transparent;--poster-color:transparent;"
-        ></model-viewer>`,
+          ar
+          ar-modes="webxr scene-viewer quick-look"
+          ar-scale="auto"
+          style="width:100%;height:100%;background:transparent;--poster-color:transparent;--min-hotspot-opacity:0;"
+        >
+          <button slot="ar-button" style="
+            position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+            padding:10px 24px;border-radius:4px;border:none;cursor:pointer;
+            background:linear-gradient(135deg,#c85a2a,#a8471f);color:#fff;
+            font-size:12px;font-weight:700;letter-spacing:0.08em;
+            box-shadow:0 4px 16px rgba(200,90,42,0.4);
+            text-transform:uppercase;white-space:nowrap;
+          ">
+            📱 내 공간에 배치해보기
+          </button>
+        </model-viewer>`,
       }}
     />
   );
